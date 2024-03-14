@@ -4,6 +4,8 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import bugsbusters.lucatickets.eventos.model.Evento;
+
 /**
  * EventosService
  * Es la interfaz service para pasar las métodos de la aplicación

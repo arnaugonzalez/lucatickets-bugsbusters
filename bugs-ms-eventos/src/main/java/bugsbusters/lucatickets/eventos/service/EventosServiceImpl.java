@@ -4,6 +4,9 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+import bugsbusters.lucatickets.eventos.model.Evento;
+import bugsbusters.lucatickets.eventos.repository.EventosRepository;
+
 /**
  * EventosServiceImpl
  * Es la implementación de la interfaz service para pasar las métodos de la aplicación
