@@ -11,9 +11,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import bugsbusters.lucatickets.eventos.adapter.EventoAdapter;
 import bugsbusters.lucatickets.eventos.model.Evento;
-import bugsbusters.lucatickets.eventos.repository.EventosRepository;
-import bugsbusters.lucatickets.eventos.controller.EventoResponse;
-import bugsbusters.lucatickets.eventos.model.Evento;
+import bugsbusters.lucatickets.eventos.service.EventosService;
+import bugsbusters.lucatickets.eventos.model.response.EventoResponse;
 
 @RestController
 @RequestMapping("/eventos")
@@ -32,7 +31,7 @@ public class EventosController {
 	}
 	@PostMapping("/nuevo") //Crear un nuevo evento en la BBDD
 	public EventoResponse anadirEvento(@RequestBody Evento evento){
-		final Evento evento = servicio.anadirEvento(evento);
-		return adaptador.de(evento);
+		final Evento eventoDevuelto = servicio.anadirEvento(evento);
+		return adaptador.de(eventoDevuelto);
 	}
 }

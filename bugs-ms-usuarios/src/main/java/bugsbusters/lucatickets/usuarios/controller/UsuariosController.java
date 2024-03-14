@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import bugsbusters.lucatickets.usuarios.model.Usuario;
-import bugsbusters.lucatickets.usuarios.service.UsuariosService;
+import bugsbusters.lucatickets.usuarios.service.UsuariosServiceImpl;
 
 
 
@@ -17,7 +17,7 @@ import bugsbusters.lucatickets.usuarios.service.UsuariosService;
 public class UsuariosController {
 	
 	@Autowired
-	private UsuariosService servicio;
+	private UsuariosServiceImpl servicio;
 	
 	@Autowired
 	private UsuarioAdapter adaptador;

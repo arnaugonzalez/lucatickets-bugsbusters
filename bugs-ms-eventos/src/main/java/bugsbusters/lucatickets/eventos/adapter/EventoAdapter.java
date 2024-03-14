@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import bugsbusters.lucatickets.eventos.model.Evento;
+import bugsbusters.lucatickets.eventos.model.response.EventoResponse;
 
 @Component
 public class EventoAdapter {
