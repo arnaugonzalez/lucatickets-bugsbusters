@@ -9,7 +9,7 @@ import bugsbusters.lucatickets.eventos.model.Evento;
 @Component
 public class EventoAdapter {
 	
-	public EventoResponse eventoADto(Evento evento) {
+	public EventoResponse de(Evento evento) {
 		EventoResponse eventoDTO = new EventoResponse();
 		eventoDTO.setNombre(evento.getNombre());
 		eventoDTO.setDescripcion_corta(evento.getDescripcion_corta());
@@ -24,7 +24,10 @@ public class EventoAdapter {
 		return eventoDTO;
 	}
 	
-	public List<EventoResponse> listaEventosADto(List<EventoResponse> eventos) {
-		return eventos.stream().map(e -> eventoADto(e)).collect(Collectors.toList());
+	public List<EventoResponse> de(List<Evento> eventos) {
+		return eventos
+				.stream()
+				.map(e -> de(e))
+				.collect(Collectors.toList());
 	}
 }
