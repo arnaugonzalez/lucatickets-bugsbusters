@@ -1,5 +1,9 @@
 package bugsbusters.lucatickets.eventos.model;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 @Entity
 @Table(name = "sala")
 @NoArgsConstructor
