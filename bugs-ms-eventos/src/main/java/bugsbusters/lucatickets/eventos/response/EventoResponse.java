@@ -1,4 +1,4 @@
-package bugsbusters.lucatikets.response;
+package bugsbusters.lucatickets.eventos.response;
 
 import java.io.Serializable;
 
