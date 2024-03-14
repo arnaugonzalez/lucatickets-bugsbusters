@@ -1,10 +1,12 @@
 package bugsbusters.lucatickets.usuarios.model;
 
-import bugsbusters.lucatickets.eventos.model.Column;
-import bugsbusters.lucatickets.eventos.model.GeneratedValue;
-import bugsbusters.lucatickets.eventos.model.Id;
-import bugsbusters.lucatickets.eventos.model.NotEmpty;
-import bugsbusters.lucatickets.eventos.model.Sala;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotEmpty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -18,7 +20,7 @@ public class Usuario {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id_evento")
+	@Column(name = "id_usuario")
 	private Long id;
 	
 	@NotEmpty(message = "El nombre no puede estar vacío")

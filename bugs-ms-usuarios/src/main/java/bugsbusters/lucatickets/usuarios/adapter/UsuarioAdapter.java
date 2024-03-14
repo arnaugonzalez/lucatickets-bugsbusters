@@ -5,6 +5,9 @@ import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Component;
 
+import bugsbusters.lucatickets.usuarios.model.Usuario;
+import bugsbusters.lucatickets.usuarios.model.response.UsuarioResponse;
+
 
 @Component
 public class UsuarioAdapter {

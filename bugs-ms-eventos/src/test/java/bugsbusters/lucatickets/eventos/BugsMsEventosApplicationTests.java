@@ -23,7 +23,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.util.List;
 
 @SpringBootTest
-@AutoConfiguration
 class BugsMsEventosApplicationTests {
 	
 	private static byte cont = 1;
