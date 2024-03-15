@@ -21,41 +21,62 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import bugsbusters.lucatickets.eventos.model.response.EventoResponse;
 
+/**
+ * Controlador para la gestión de eventos en la aplicación LucaTickets.
+ * <p>
+ * Este controlador proporciona puntos finales para listar eventos y añadir
+ * nuevos eventos.
+ * </p>
+ */
+
 @RestController
-@ComponentScan(basePackages = {"bugsbusters.lucatickets"})
+@ComponentScan(basePackages = { "bugsbusters.lucatickets" })
 @RequestMapping("/eventos")
 @Tag(name = "evento", description = "LucaTickets API")
 public class EventosController {
-	
-	
+
 	@Autowired
 	private EventosService servicio;
-	
+
 	@Autowired
 	private EventoAdapter adaptador;
-	
-	@Operation(
-			summary = "Listar eventos", description = "Carga la lista de eventos de la base de datos", tags= {"evento"})
+
+	/**
+	 * Obtiene un listado de eventos desde la base de datos.
+	 *
+	 * @return Una lista de objetos EventoResponse que representan los eventos
+	 *         cargados desde la base de datos.
+	 */
+
+	@Operation(summary = "Listar eventos", description = "Carga la lista de eventos de la base de datos", tags = {
+			"evento" })
 	@ApiResponses(value = {
 			@ApiResponse(responseCode = "200", description = "Lista cargada", content = {
-							@Content(mediaType = "application/json", schema = @Schema(implementation = Evento.class))}),
+					@Content(mediaType = "application/json", schema = @Schema(implementation = Evento.class)) }),
 			@ApiResponse(responseCode = "400", description = "No valido ", content = @Content),
-			@ApiResponse(responseCode = "404", description = "No se ha encontrado la base de datos", content = @Content)})
-	@GetMapping("/listado") //Devolver la lista de eventos desde el administrador
+			@ApiResponse(responseCode = "404", description = "No se ha encontrado la base de datos", content = @Content) })
+	@GetMapping("/listado") // Devolver la lista de eventos desde el administrador
 	public List<EventoResponse> listadoEventos() {
 		final List<Evento> eventos = servicio.listadoEventos();
 		return adaptador.de(eventos);
 	}
-	
-	@Operation(
-			summary = "Añadir evento", description = "Añade un nuevo evento a la base de datos", tags= {"evento"})
+
+	/**
+	 * Añade un nuevo evento a la base de datos.
+	 *
+	 * @param evento El objeto Evento que se va a añadir a la base de datos.
+	 * @return Un objeto EventoResponse que representa el evento añadido a la base
+	 *         de datos.
+	 */
+
+	@Operation(summary = "Añadir evento", description = "Añade un nuevo evento a la base de datos", tags = { "evento" })
 	@ApiResponses(value = {
 			@ApiResponse(responseCode = "200", description = "Evento añadido", content = {
-							@Content(mediaType = "application/json", schema = @Schema(implementation = Evento.class))}),
+					@Content(mediaType = "application/json", schema = @Schema(implementation = Evento.class)) }),
 			@ApiResponse(responseCode = "400", description = "No valido ", content = @Content),
-			@ApiResponse(responseCode = "404", description = "No se ha encontrado la base de datos", content = @Content)})
-	@PostMapping("/nuevo") //Crear un nuevo evento en la BBDD
-	public EventoResponse anadirEvento(@RequestBody Evento evento){
+			@ApiResponse(responseCode = "404", description = "No se ha encontrado la base de datos", content = @Content) })
+	@PostMapping("/nuevo") // Crear un nuevo evento en la BBDD
+	public EventoResponse anadirEvento(@RequestBody Evento evento) {
 		final Evento eventoDevuelto = servicio.anadirEvento(evento);
 		return adaptador.de(eventoDevuelto);
 	}

@@ -43,3 +43,4 @@ public class Usuario {
 	@NotEmpty(message = "La fecha debe estar en formato correcto")
 	private String fecha_alta;
 }
+

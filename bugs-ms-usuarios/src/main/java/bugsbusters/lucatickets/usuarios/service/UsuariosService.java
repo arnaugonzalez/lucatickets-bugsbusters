@@ -13,18 +13,21 @@ import bugsbusters.lucatickets.usuarios.model.Usuario;
  */
 @Service
 public interface UsuariosService {
-	
+
 	/**
 	 * Método para mostrar la lista de usuarios guardados en la base de datos
+	 * 
 	 * @return la lista de usuarios
 	 */
 	List<Usuario> listadoUsuarios();
-	
+
 	/**
 	 * Método para añadir un usuario en la base de datos
+	 * 
+	 * 
 	 * @param Usuario a añadir
 	 * @return Usuario añadido
 	 */
 	Usuario anadirUsuario(Usuario usuario);
-	
+
 }

@@ -19,17 +19,19 @@ public class UsuariosServiceImpl implements UsuariosService {
 
 	@Autowired
 	private UsuariosRepository repo;
-	
+
 	/**
 	 * Método para mostrar la lista de usuarios guardados en la base de datos
+	 * 
 	 * @return la lista de usuarios
 	 */
 	public List<Usuario> listadoUsuarios() {
 		return repo.findAll();
 	}
-	
+
 	/**
 	 * Método para añadir un usuario en la base de datos
+	 * 
 	 * @param Usuario a añadir
 	 * @return Usuario añadido
 	 */
