@@ -12,13 +12,17 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * Usuario del sistema LucaTickets
+ * @author adria
+ */
 @Entity
 @Table(name="usuarios")
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
 public class Usuario {
-
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id_usuario")
@@ -39,3 +43,4 @@ public class Usuario {
 	@NotEmpty(message = "La fecha debe estar en formato correcto")
 	private String fecha_alta;
 }
+
