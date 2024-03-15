@@ -3,6 +3,7 @@ package bugsbusters.lucatickets.eventos.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -15,6 +16,7 @@ import bugsbusters.lucatickets.eventos.service.EventosService;
 import bugsbusters.lucatickets.eventos.model.response.EventoResponse;
 
 @RestController
+@ComponentScan(basePackages = {"bugsbusters.lucatickets"})
 @RequestMapping("/eventos")
 public class EventosController {
 	
