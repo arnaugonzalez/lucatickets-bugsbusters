@@ -12,13 +12,17 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * Usuario del sistema LucaTickets
+ * @author adria
+ */
 @Entity
 @Table(name="usuarios")
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
 public class Usuario {
-
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id_usuario")
