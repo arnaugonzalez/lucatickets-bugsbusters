@@ -14,11 +14,18 @@ import bugsbusters.lucatickets.usuarios.model.Usuario;
 import bugsbusters.lucatickets.usuarios.model.response.UsuarioResponse;
 import bugsbusters.lucatickets.usuarios.service.UsuariosService;
 import bugsbusters.lucatickets.usuarios.service.UsuariosServiceImpl;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 
 
 
 @RestController
 @RequestMapping("/usuarios")
+@Tag(name = "usuario", description = "LucaTickets API")
 public class UsuariosController {
 	
 	
@@ -28,12 +35,26 @@ public class UsuariosController {
 	@Autowired
 	private UsuarioAdapter adaptador;
 	
+	@Operation(
+			summary = "Listar usuarios", description = "Carga la lista de usuarios de la base de datos", tags= {"usuario"})
+	@ApiResponses(value = {
+			@ApiResponse(responseCode = "200", description = "Lista cargada", content = {
+							@Content(mediaType = "application/json", schema = @Schema(implementation = Usuario.class))}),
+			@ApiResponse(responseCode = "400", description = "No valido ", content = @Content),
+			@ApiResponse(responseCode = "404", description = "No se ha encontrado la base de datos", content = @Content)})
 	@GetMapping("/listado") //Devolver la lista de usuarios desde el administrador
 	public List<UsuarioResponse> listadoUsuarios() {
 		final List<Usuario> usuarios = servicio.listadoUsuarios();
 		return adaptador.de(usuarios);
 	}
 	
+	@Operation(
+			summary = "Añadir usuario", description = "Añade un nuevo usuario a la base de datos", tags= {"usuario"})
+	@ApiResponses(value = {
+			@ApiResponse(responseCode = "200", description = "Usuario añadido", content = {
+							@Content(mediaType = "application/json", schema = @Schema(implementation = Usuario.class))}),
+			@ApiResponse(responseCode = "400", description = "No valido ", content = @Content),
+			@ApiResponse(responseCode = "404", description = "No se ha encontrado la base de datos", content = @Content)})
 	@PostMapping("/nuevo") //Devolver un usuario buscado por id
 	public UsuarioResponse anadirUsuario(@RequestBody Usuario usuario){
 		final Usuario usuarioDevuelto = servicio.anadirUsuario(usuario);
