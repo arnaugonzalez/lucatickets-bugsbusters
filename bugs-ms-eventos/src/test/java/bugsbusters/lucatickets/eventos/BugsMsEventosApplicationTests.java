@@ -22,6 +22,7 @@ import bugsbusters.lucatickets.eventos.model.response.EventoResponse;
 import bugsbusters.lucatickets.eventos.repository.EventosRepository;
 import bugsbusters.lucatickets.eventos.service.EventosService;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -102,7 +103,33 @@ class BugsMsEventosApplicationTests {
 		//esta prueba unitaria verifica si el número de eventos devueltos por un servicio es igual al número de eventos en la base de datos.
 		assertTrue(test.size() == listado.size());
 	 }
-	 
 	
+	@Test
+	public void eventoAnadidoResponse() {
+		logger.info("Test::testEventoAnadidoResponse(): Que tras añadir un evento nuevo, que el listado devuelto sea igual de largo que antes de anadirlo + 1");
+		
+		int longitud_listado_antes = dao.findAll().size();
+		
+		Sala salaA = new Sala(1L, "Sala A", "Villarobledo",
+				"Calle de la birra", "Al aire libre", 600);
+		
+		Evento eventoTest = new Evento(
+				9999L, "Clap", "Disco Mataró",
+				"Discoteca multitudinaria, hacen varios tipos de eventos con variedad musical amplia" ,
+				"https://www.capgros.com/uploads/s1/55/54/29/clap_11_1280x644.jpeg",
+				"23-04-2024", "23:59", 18.0, "Código de vestimenta y prohibido acosar a nadie",
+				salaA);
+		
+//		EventoResponse eventoAdaptado = adapter.de(eventoTest);
 
+//		EventoResponse test = control.anadirEvento(eventoTest);
+		
+//		assertTrue(test == eventoAdaptado);
+		
+		control.anadirEvento(eventoTest);
+		
+		int longitud_listado_despues = dao.findAll().size();
+		
+		assertEquals(longitud_listado_antes + 1, longitud_listado_despues);
+	 }
 }
