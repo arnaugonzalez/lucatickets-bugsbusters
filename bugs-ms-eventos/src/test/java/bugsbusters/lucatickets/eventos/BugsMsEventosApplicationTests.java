@@ -22,21 +22,28 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.List;
 
+
+/**
+ * Clase que contiene los casos de prueba para la aplicación de gestión de
+ * usuarios.
+ * 
+ * <p>Autor: Arnau</p>
+ */
 @SpringBootTest
 class BugsMsEventosApplicationTests {
-	
+
 	private static byte cont = 1;
 	private static Logger logger;
-	
+
 	@Autowired
 	private EventosService service;
 
 	@Autowired
 	private EventosRepository dao;
-	
+
 	@Autowired
 	private EventosController control;
-	
+
 	@Autowired
 	private EventoAdapter adapter;
 
@@ -47,7 +54,7 @@ class BugsMsEventosApplicationTests {
 			System.out.println("No funciona JUnit");
 		}
 	}
-	
+
 	/**
 	 * Método ejecutado una vez antes de que se ejecuten las pruebas
 	 */
@@ -55,7 +62,7 @@ class BugsMsEventosApplicationTests {
 	public static void onceExecutedBeforeAll() {
 		logger.info(">>> Iniciando pruebas...");
 	}
-	
+
 	/**
 	 * Método ejecutado antes de cada prueba
 	 */
@@ -64,7 +71,7 @@ class BugsMsEventosApplicationTests {
 		System.out.println("");
 		logger.info(">>> PRUEBA UNITARIA " + (cont++) + " <<<");
 	}
-	
+
 	/**
 	 * Método ejecutado una vez después de que se ejecuten las pruebas
 	 */
@@ -72,44 +79,62 @@ class BugsMsEventosApplicationTests {
 	public static void onceExecutedAfterAll() {
 		logger.info(">>> Terminado las pruebas unitarias");
 	}
-
+	
+	
+    /**
+     * Verifica si el contexto de la aplicación se carga correctamente.
+     * 
+     * <p>Se asegura de que la aplicación se inicie correctamente sin errores.</p>
+     */
 	@Test
 	void contextLoads() {
 	}
-	
-	
-	 @Test
-	 public void testListadoDevuelto() {
-		logger.info("Test::testListadoDevuelto(): Que la cantidad de eventos a mostrar por el servicio sea igual a la longitud de la base de datos");
-		
-		//número de eventos en la base de datos.
+
+	/**
+	 * Prueba para verificar si el listado de eventos devuelto por el servicio es
+	 * igual a la longitud de la base de datos.
+	 * 
+	 * <p>Se verifica que el número de eventos devueltos por el servicio coincida con el número de eventos en la base de datos.</p>
+	 */
+
+	@Test
+	public void testListadoDevuelto() {
+		logger.info(
+				"Test::testListadoDevuelto(): Que la cantidad de eventos a mostrar por el servicio sea igual a la longitud de la base de datos");
+
+		// número de eventos en la base de datos.
 		List<Evento> listado = dao.findAll();
-		
-		//número de eventos devueltos por un servicio
+
+		// número de eventos devueltos por un servicio
 		List<EventoResponse> test = control.listadoEventos();
 
-		//esta prueba unitaria verifica si el número de eventos devueltos por un servicio es igual al número de eventos en la base de datos.
+		// esta prueba unitaria verifica si el número de eventos devueltos por un
+		// servicio es igual al número de eventos en la base de datos.
 		assertTrue(test.size() == listado.size());
-	 }
-	 
-	 @Test
-	 public void testEventoAnadidoResponse() {
-		logger.info("Test::testEventoAnadidoResponse(): Que tras añadir un evento nuevo, el HTTP Response Body contenga dicho Evento");
-		
-		Sala salaA = new Sala(1L, "Sala A", "Villarobledo",
-				"Calle de la birra", "Al aire libre", 600);
-		
-		Evento eventoTest = new Evento(
-				9999L, "Clap", "Disco Mataró",
-				"Discoteca multitudinaria, hacen varios tipos de eventos con variedad musical amplia" ,
-				"https://www.capgros.com/uploads/s1/55/54/29/clap_11_1280x644.jpeg",
-				"23-04-2024", "23:59", 18.0, "Código de vestimenta y prohibido acosar a nadie",
-				salaA);
-		
+	}
+
+	/**v
+	 * Prueba para verificar si el evento añadido devuelve la respuesta esperada.
+	 * 
+	 * <p>Se añade un evento nuevo y se verifica que la respuesta del controlador coincida con la respuesta esperada.</p>
+	 */
+
+	@Test
+	public void testEventoAnadidoResponse() {
+		logger.info(
+				"Test::testEventoAnadidoResponse(): Que tras añadir un evento nuevo, el HTTP Response Body contenga dicho Evento");
+
+		Sala salaA = new Sala(1L, "Sala A", "Villarobledo", "Calle de la birra", "Al aire libre", 600);
+
+		Evento eventoTest = new Evento(9999L, "Clap", "Disco Mataró",
+				"Discoteca multitudinaria, hacen varios tipos de eventos con variedad musical amplia",
+				"https://www.capgros.com/uploads/s1/55/54/29/clap_11_1280x644.jpeg", "23-04-2024", "23:59", 18.0,
+				"Código de vestimenta y prohibido acosar a nadie", salaA);
+
 		EventoResponse eventoAdaptado = adapter.de(eventoTest);
 
 		EventoResponse test = control.anadirEvento(eventoTest);
-		
+
 		assertTrue(test == eventoAdaptado);
-	 }
+	}
 }
