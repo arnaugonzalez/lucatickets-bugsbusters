@@ -32,6 +32,13 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import java.util.List;
 
+/**
+* Clase que contiene los casos de prueba para la aplicación de gestión de
+* usuarios.
+*
+* @author Arnau, Mireia
+*/
+
 @SpringBootTest
 class BugsMsEventosApplicationTests {
 	
@@ -80,6 +87,12 @@ class BugsMsEventosApplicationTests {
 		logger.info(">>> Terminado las pruebas unitarias");
 	}
 
+	/**
+     * Verifica si el contexto de la aplicación se carga correctamente.
+     *
+     * <p>Se asegura de que la aplicación se inicie correctamente sin errores.</p>
+     */
+	
 	@Test
 	void contextLoads() {
 	}
@@ -88,6 +101,13 @@ class BugsMsEventosApplicationTests {
 	void existeEventoController() {
 		assertThat(control).isNotNull();
 	}
+	
+	/**
+	 * Prueba para verificar si el listado de eventos devuelto por el servicio es
+	 * igual a la longitud de la base de datos.
+	 *
+	 * <p>Se verifica que el número de eventos devueltos por el servicio coincida con el número de eventos en la base de datos.</p>
+	 */
 	
 	@Test
 	public void longitudListadoEventos() {
@@ -102,6 +122,12 @@ class BugsMsEventosApplicationTests {
 		//esta prueba unitaria verifica si el número de eventos devueltos por un servicio es igual al número de eventos en la base de datos.
 		assertTrue(test.size() == listado.size());
 	}
+	
+	/**
+	 * Prueba para verificar si el evento añadido devuelve la respuesta esperada.
+	 *
+	 * <p>Se añade un evento nuevo y se verifica que la respuesta del controlador coincida con la respuesta esperada.</p>
+	 */
 	
 	@Test
 	public void eventoAnadidoResponse() {

@@ -8,14 +8,10 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
-import bugsbusters.lucatickets.eventos.controller.EventosController;
-import bugsbusters.lucatickets.eventos.model.Evento;
-import bugsbusters.lucatickets.eventos.model.Sala;
 
 
 //@WebMvcTest(EventosController.class)
