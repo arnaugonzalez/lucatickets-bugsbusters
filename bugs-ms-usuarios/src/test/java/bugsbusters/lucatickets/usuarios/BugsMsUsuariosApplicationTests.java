@@ -1,7 +1,9 @@
 package bugsbusters.lucatickets.usuarios;
  
 import static org.junit.jupiter.api.Assertions.assertTrue;
- 
+
+import java.util.List;
+
 import org.apache.logging.log4j.Logger;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +13,7 @@ import bugsbusters.lucatickets.usuarios.adapter.UsuarioAdapter;
 import bugsbusters.lucatickets.usuarios.controller.UsuariosController;
 import bugsbusters.lucatickets.usuarios.model.Usuario;
 import bugsbusters.lucatickets.usuarios.model.response.UsuarioResponse;
+import bugsbusters.lucatickets.usuarios.repository.UsuariosRepository;
  
 /**
 * Clase que contiene los casos de prueba para la aplicación de gestión de
@@ -27,6 +30,9 @@ class BugsMsUsuariosApplicationTests {
 	private UsuariosController control;
  
 	@Autowired
+	private UsuariosRepository dao;
+	
+	@Autowired
 	private UsuarioAdapter adapter;
  
 	/**
@@ -39,6 +45,21 @@ class BugsMsUsuariosApplicationTests {
 	void contextLoads() {
 	}
  
+	
+	@Test
+	 public void longitudListadoUsuarios() {
+		logger.info("Test::longitudListadoUsuarios(): Que la cantidad de usuarios a mostrar por el servicio sea igual a la longitud de la base de datos");
+		
+		//número de usuarios en la base de datos.
+		List<Usuario> listado = dao.findAll();
+		
+		//número de usuarios devueltos por un servicio
+		List<UsuarioResponse> test = control.listadoUsuarios();
+
+		//esta prueba unitaria verifica si el número de usuarios devueltos por un servicio es igual al número de usuarios en la base de datos.
+		assertTrue(test.size() == listado.size());
+	 }
+	
 	/**
 	 * Prueba la funcionalidad de añadir un usuario.
 	 *
