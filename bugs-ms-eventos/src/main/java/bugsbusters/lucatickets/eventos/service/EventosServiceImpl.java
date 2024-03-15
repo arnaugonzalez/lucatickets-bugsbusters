@@ -3,6 +3,7 @@ package bugsbusters.lucatickets.eventos.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import bugsbusters.lucatickets.eventos.model.Evento;
 import bugsbusters.lucatickets.eventos.repository.EventosRepository;
@@ -14,17 +15,18 @@ import bugsbusters.lucatickets.eventos.repository.EventosRepository;
  * V1
  * bugs-ms-eventos
  */
-public class EventosServiceImpl implements EventosService{
+@Service
+public class EventosServiceImpl implements EventosService {
 	
 	@Autowired
-	private EventosRepository eventosRepository;
+	private EventosRepository repo;
 	
 	/**
 	 * Método para mostrar la lista de eventos guardados en la base de datos
 	 */
 	@Override
 	public List<Evento> listadoEventos() {
-		return eventosRepository.findAll();
+		return repo.findAll();
 	}
 	
 	/**
@@ -32,9 +34,8 @@ public class EventosServiceImpl implements EventosService{
 	 */
 	@Override
 	public Evento anadirEvento(Evento evento) {
-		Evento eventoGuardado = eventosRepository.save(evento);
-		
-		return eventoGuardado;
+		return repo.save(evento);
+
 	}
 
 }

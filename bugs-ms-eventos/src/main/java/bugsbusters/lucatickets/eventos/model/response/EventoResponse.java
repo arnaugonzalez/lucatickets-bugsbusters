@@ -1,9 +1,11 @@
-package bugsbusters.lucatikets.response;
+package bugsbusters.lucatickets.eventos.model.response;
 
 import java.io.Serializable;
 
-
-
+import bugsbusters.lucatickets.eventos.model.Sala;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @NoArgsConstructor
 @Data
