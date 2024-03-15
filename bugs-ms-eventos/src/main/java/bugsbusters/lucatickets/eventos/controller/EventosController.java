@@ -18,6 +18,7 @@ import bugsbusters.lucatickets.eventos.model.response.EventoResponse;
 @RequestMapping("/eventos")
 public class EventosController {
 	
+	
 	@Autowired
 	private EventosService servicio;
 	
