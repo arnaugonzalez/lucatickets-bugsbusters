@@ -21,6 +21,12 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import bugsbusters.lucatickets.eventos.model.response.EventoResponse;
 
+
+/**
+ * Controlador para la gestión de eventos en la aplicación LucaTickets.
+ * <p>Este controlador proporciona puntos finales para listar eventos y añadir nuevos eventos.</p>
+ */
+
 @RestController
 @ComponentScan(basePackages = {"bugsbusters.lucatickets"})
 @RequestMapping("/eventos")
@@ -34,6 +40,12 @@ public class EventosController {
 	@Autowired
 	private EventoAdapter adaptador;
 	
+	
+	/**
+	 * Obtiene un listado de eventos desde la base de datos.
+	 *
+	 * @return Una lista de objetos EventoResponse que representan los eventos cargados desde la base de datos.
+	 */
 	@Operation(
 			summary = "Listar eventos", description = "Carga la lista de eventos de la base de datos", tags= {"evento"})
 	@ApiResponses(value = {
@@ -47,6 +59,13 @@ public class EventosController {
 		return adaptador.de(eventos);
 	}
 	
+	
+	/**
+	 * Añade un nuevo evento a la base de datos.
+	 *
+	 * @param evento El objeto Evento que se va a añadir a la base de datos.
+	 * @return Un objeto EventoResponse que representa el evento añadido a la base de datos.
+	 */
 	@Operation(
 			summary = "Añadir evento", description = "Añade un nuevo evento a la base de datos", tags= {"evento"})
 	@ApiResponses(value = {

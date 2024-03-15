@@ -9,8 +9,22 @@ import io.swagger.v3.oas.models.info.Contact;
 import io.swagger.v3.oas.models.info.Info;
 import io.swagger.v3.oas.models.info.License;
 
+
+
+/**
+ * Configuración de OpenAPI para la documentación de la API de Eventos.
+ */
+
 @Configuration
 public class OpenApiConfig {
+	
+	
+	 /**
+     * Configura y devuelve un objeto OpenAPI que describe la API de Eventos.
+     *
+     * @return Objeto OpenAPI configurado.
+     * @author Adrian
+     */
 	@Bean
 	public OpenAPI EventoOpenAPI() {
 		return new OpenAPI()
