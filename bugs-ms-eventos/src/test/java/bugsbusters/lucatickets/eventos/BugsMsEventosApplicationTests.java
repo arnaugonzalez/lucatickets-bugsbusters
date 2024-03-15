@@ -70,4 +70,6 @@ class BugsMsEventosApplicationTests {
 		//esta prueba unitaria verifica si el número de eventos devueltos por un servicio es igual al número de eventos en la base de datos.
 		assertTrue(test.size() == listado.size());
 	 }
+	 
+	
 }
