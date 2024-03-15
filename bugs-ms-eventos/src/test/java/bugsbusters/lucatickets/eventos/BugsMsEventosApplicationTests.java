@@ -130,6 +130,42 @@ class BugsMsEventosApplicationTests {
 	 * <p>Se añade un evento nuevo y se verifica que la respuesta del controlador coincida con la respuesta esperada.</p>
 	 */
 	
+	
+	@Test
+	public void eventoAnadidoResponse() {
+		logger.info("Test::eventoAnadidoResponse(): Que tras añadir un evento nuevo, el HTTP Response Body contenga dicho Evento");
+		
+		Sala salaA = new Sala(1L, "Sala A", "Villarobledo",
+				"Calle de la birra", "Al aire libre", 600);
+		
+		Evento eventoTest = new Evento();
+		eventoTest.setId(9999L);
+		eventoTest.setNombre("Clap");
+		eventoTest.setDescripcion_corta("Disco Mataró");
+		eventoTest.setDescripcion_extendida("Discoteca multitudinaria, hacen varios tipos de eventos con variedad musical amplia");
+		eventoTest.setFoto("https://www.capgros.com/uploads/s1/55/54/29/clap_11_1280x644.jpeg");
+		eventoTest.setFecha("23-04-2024");
+		eventoTest.setHora("23:59");
+		eventoTest.setPrecio(18.0);
+		eventoTest.setNormas("Código de vestimenta y prohibido acosar a nadie");
+		eventoTest.setSala(salaA);
+		
+		EventoResponse eventoAdaptado = new EventoResponse();
+		eventoAdaptado.setNombre("Clap");
+		eventoAdaptado.setDescripcion_corta("Disco Mataró");
+		eventoAdaptado.setDescripcion_extendida("Discoteca multitudinaria, hacen varios tipos de eventos con variedad musical amplia");
+		eventoAdaptado.setFoto("https://www.capgros.com/uploads/s1/55/54/29/clap_11_1280x644.jpeg");
+		eventoAdaptado.setFecha("23-04-2024");
+		eventoAdaptado.setHora("23:59");
+		eventoAdaptado.setPrecio(18.0);
+		eventoAdaptado.setNormas("Código de vestimenta y prohibido acosar a nadie");
+		eventoAdaptado.setSala(salaA);
+		eventoAdaptado.setCiudad(salaA.getCiudad());
+		EventoResponse test = control.anadirEvento(eventoTest);
+		
+		assertTrue(test.equals(eventoAdaptado));
+	}
+	
 	@Test
 	public void eventoAnadidoLongitudListado() {
 		logger.info("Test::eventoAnadidoLongitudListado(): Que tras añadir un evento nuevo, que el listado devuelto sea igual de largo que antes de anadirlo + 1");
