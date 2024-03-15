@@ -18,6 +18,7 @@ import bugsbusters.lucatickets.eventos.model.response.EventoResponse;
 import bugsbusters.lucatickets.eventos.repository.EventosRepository;
 import bugsbusters.lucatickets.eventos.service.EventosService;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.List;
@@ -94,7 +95,9 @@ class BugsMsEventosApplicationTests {
 	 
 	 @Test
 	 public void testEventoAnadidoResponse() {
-		logger.info("Test::testEventoAnadidoResponse(): Que tras añadir un evento nuevo, el HTTP Response Body contenga dicho Evento");
+		logger.info("Test::testEventoAnadidoResponse(): Que tras añadir un evento nuevo, que el listado devuelto sea igual de largo que antes de anadirlo + 1");
+
+		int longitud_listado_antes = dao.findAll().size();
 		
 		Sala salaA = new Sala(1L, "Sala A", "Villarobledo",
 				"Calle de la birra", "Al aire libre", 600);
@@ -106,10 +109,16 @@ class BugsMsEventosApplicationTests {
 				"23-04-2024", "23:59", 18.0, "Código de vestimenta y prohibido acosar a nadie",
 				salaA);
 		
-		EventoResponse eventoAdaptado = adapter.de(eventoTest);
+//		EventoResponse eventoAdaptado = adapter.de(eventoTest);
 
-		EventoResponse test = control.anadirEvento(eventoTest);
+//		EventoResponse test = control.anadirEvento(eventoTest);
 		
-		assertTrue(test == eventoAdaptado);
+//		assertTrue(test == eventoAdaptado);
+		
+		control.anadirEvento(eventoTest);
+		
+		int longitud_listado_despues = dao.findAll().size();
+		
+		assertEquals(longitud_listado_antes + 1, longitud_listado_despues);
 	 }
 }
