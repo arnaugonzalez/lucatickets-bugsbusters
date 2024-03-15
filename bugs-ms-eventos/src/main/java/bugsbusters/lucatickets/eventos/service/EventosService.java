@@ -24,7 +24,7 @@ public interface EventosService {
 	
 	/**
 	 * Método para añadir un evento en la base de datos
-	 * @param evento Evento a añadir
+	 * @param Evento a añadir
 	 * @return Evento añadido
 	 */
 	public Evento anadirEvento(Evento evento);
