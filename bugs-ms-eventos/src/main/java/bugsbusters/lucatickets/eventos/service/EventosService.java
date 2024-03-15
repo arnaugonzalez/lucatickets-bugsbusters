@@ -12,8 +12,8 @@ import bugsbusters.lucatickets.eventos.model.Evento;
  * 14/03/2024
  * V1
  * bugs-ms-eventos
+ * @author Andrés
  */
-@Service
 public interface EventosService {
 	
 	/**
