@@ -30,6 +30,14 @@ public class UsuariosServiceImpl implements UsuariosService {
 	}
 
 	/**
+	 * Método para buscar un Usuario por ID, si existe
+	 */
+	@Override
+	public Optional<Usuario> dameUsuarioPorId(long id) {
+		return repo.findById(id);
+	}
+	
+	/**
 	 * Método para añadir un usuario en la base de datos
 	 * 
 	 * @param Usuario a añadir

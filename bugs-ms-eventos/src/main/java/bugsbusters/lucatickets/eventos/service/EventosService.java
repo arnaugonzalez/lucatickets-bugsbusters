@@ -1,6 +1,7 @@
 package bugsbusters.lucatickets.eventos.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
@@ -21,6 +22,14 @@ public interface EventosService {
 	 * @return la lista de eventos
 	 */
 	List<Evento> listadoEventos();
+	
+	/**
+	 * Método para encontrar un evento en la base de datos por un ID
+	 * @param id ID para buscar el Evento
+	 * @return Evento añadido si existe, sino es un Optional.EMPTY
+	 */
+	
+	Optional<Evento> dameEventoPorId(long id);
 	
 	/**
 	 * Método para añadir un evento en la base de datos

@@ -1,6 +1,7 @@
 package bugsbusters.lucatickets.usuarios.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
@@ -21,6 +22,15 @@ public interface UsuariosService {
 	 */
 	List<Usuario> listadoUsuarios();
 
+	/**
+	 * Método para encontrar un evento en la base de datos por un ID
+	 * @param id ID para buscar el Usuario
+	 * @return Usuario añadido si existe, sino es un Optional.EMPTY
+	 */
+	
+	Optional<Usuario> dameUsuarioPorId(long id);
+	
+	
 	/**
 	 * Método para añadir un usuario en la base de datos
 	 * 

@@ -27,9 +27,10 @@ public class EventoAdapter {
 		eventoDTO.setDescripcion_corta(evento.getDescripcion_corta());
 		eventoDTO.setDescripcion_extendida(evento.getDescripcion_extendida());
 		eventoDTO.setFoto(evento.getFoto());
-		eventoDTO.setFecha(evento.getFecha());
-		eventoDTO.setHora(evento.getHora());
+		eventoDTO.setFecha(evento.getFecha().toString());
+		eventoDTO.setHora(evento.getHora().toString());
 		eventoDTO.setPrecio(evento.getPrecio());
+		eventoDTO.setMusica(evento.getMusica());
 		eventoDTO.setNormas(evento.getNormas());
 		eventoDTO.setSala(evento.getSala());
 		eventoDTO.setCiudad(evento.getSala().getCiudad());

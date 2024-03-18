@@ -1,6 +1,11 @@
 package bugsbusters.lucatickets.eventos.model;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
+
 import javax.validation.constraints.NotEmpty;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -57,20 +62,22 @@ public class Evento {
 	/**
 	 * La URL de la imagen del evento.
 	 */
-	@NotEmpty(message = "El evento tiene que tener una imagen de visualización")
+	@NotEmpty(message = "Debe contener el link de una imagen")
 	private String foto;
 
 	/**
 	 * La fecha del evento.
 	 */
-	@NotEmpty(message = "No puede faltar la fecha del evento")
-	private String fecha;
+	@NotEmpty(message = "Debe ser una fecha en formato YYYY-MM-DD")
+	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+	private LocalDate fecha;
 
 	/**
 	 * La hora del evento.
 	 */
-	@NotEmpty(message = "No puede faltar la hora del evento")
-	private String hora;
+	@NotEmpty(message = "Debe ser una hora en formato HH:MM:ss")
+	@DateTimeFormat(iso = DateTimeFormat.ISO.TIME)
+	private LocalTime hora;
 
 	/**
 	 * El precio del evento.
@@ -78,6 +85,12 @@ public class Evento {
 	@NotEmpty(message = "Hay que tener beneficios o entramos en bancarrota")
 	private double precio;
 
+	/**
+	 * La música del evento.
+	 */
+	@NotEmpty(message = "Debe haber un género de música en el evento")
+	private String musica;
+	
 	/**
 	 * Las normas del evento.
 	 */

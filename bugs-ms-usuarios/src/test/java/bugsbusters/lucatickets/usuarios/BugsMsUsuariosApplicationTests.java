@@ -1,14 +1,16 @@
 package bugsbusters.lucatickets.usuarios;
  
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.List;
 
+import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
- 
+
 import bugsbusters.lucatickets.usuarios.adapter.UsuarioAdapter;
 import bugsbusters.lucatickets.usuarios.controller.UsuariosController;
 import bugsbusters.lucatickets.usuarios.model.Usuario;
@@ -24,6 +26,7 @@ import bugsbusters.lucatickets.usuarios.repository.UsuariosRepository;
  
 @SpringBootTest
 class BugsMsUsuariosApplicationTests {
+	
 	private static Logger logger;
  
 	@Autowired
@@ -35,16 +38,27 @@ class BugsMsUsuariosApplicationTests {
 	@Autowired
 	private UsuarioAdapter adapter;
  
+	static {
+		try {
+			logger = LogManager.getLogger(BugsMsUsuariosApplicationTests.class);
+		} catch (Throwable e) {
+			System.out.println("No funciona JUnit");
+		}
+	}
+	
 	/**
 	 * Verifica si el contexto de la aplicación se carga correctamente.
 	 *
 	 * <p>Este método asegura que la aplicación se inicie correctamente sin errores.</p>
 	 */
- 
 	@Test
 	void contextLoads() {
 	}
- 
+	
+	@Test
+	void existeEventoController() {
+		assertThat(control).isNotNull();
+	}
 	
 	@Test
 	 public void longitudListadoUsuarios() {

@@ -7,14 +7,17 @@ CREATE TABLE `eventos` (
   `descripcion_corta` varchar(60) NOT NULL,
   `descripcion_extendida` varchar(200) NOT NULL,
   `foto` varchar(100) NOT NULL,
-  `fecha` varchar(15) NOT NULL,
-  `hora` varchar(10) NOT NULL,
+  `fecha` DATE NOT NULL,
+  `hora` TIME NOT NULL,
   `precio` float(10) NOT NULL,
+  `musica` varchar(25) NOT NULL,
   `normas` varchar(150) NOT NULL,
   `id_sala` int(11) NOT NULL,
   PRIMARY KEY (`id_evento`),
   FOREIGN KEY (`id_sala`) REFERENCES `sala`(`id_sala`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4;
+
+DROP TABLE IF EXISTS `sala`;
 
 CREATE TABLE `sala` (
   `id_sala` int(11) NOT NULL AUTO_INCREMENT,
@@ -25,6 +28,44 @@ CREATE TABLE `sala` (
   `aforo` int(10) NOT NULL,
   PRIMARY KEY (`id_sala`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4;
+
+INSERT INTO sala (nombre, ciudad, direccion, tipo_recinto, aforo) VALUES
+('Pacha Barcelona', 'Barcelona', 'Passeig Marítim', 'Discoteca', 1000),
+('Joy Eslava', 'Madrid', 'Calle Arenal', 'Discoteca', 800),
+('Opium Barcelona', 'Barcelona', 'Passeig Marítim', 'Discoteca', 1500),
+('Fabrik', 'Madrid', 'Avenida de la Industria', 'Discoteca', 5000),
+('Sala Apolo', 'Barcelona', 'Carrer Nou de la Rambla', 'Discoteca', 900),
+('Amnesia Ibiza', 'Ibiza', 'Carretera de Ibiza a San Antonio', 'Discoteca', 5000),
+('Kapital', 'Madrid', 'Calle de Atocha', 'Discoteca', 3000),
+('Privilege Ibiza', 'Ibiza', 'Carrer de les Alzines', 'Discoteca', 10000),
+('Razzmatazz', 'Barcelona', 'Carrer dels Almogàvers', 'Discoteca', 3000),
+('Sala But', 'Madrid', 'Calle Barceló', 'Discoteca', 1000);
+
+INSERT INTO eventos (nombre, descripcion_corta, descripcion_extendida, foto, fecha, hora, precio, musica, normas, id_sala) VALUES
+('Fiesta ElectroShock', '¡No te pierdas la mejor fiesta de música electrónica!', 'Únete a nosotros en una noche llena de ritmos electrónicos y emociones intensas.', 'electroshock.jpg', '2024-04-15', '22:00', 20.00, 'Electrónica', 'Prohibido el acceso a menores de 18 años.', 1),
+('Noche de Reggaeton', '¡Ven a bailar los mejores éxitos de reggaeton toda la noche!', 'Una noche llena de perreo intenso y buen ambiente.', 'reggaeton.jpg', '2024-04-20', '23:00', 15.00, 'Reggaeton', 'Prohibida la entrada con bebidas de fuera.', 2),
+('Fiesta House Vibes', 'Disfruta de los mejores beats house en nuestra sala.', 'Una experiencia única llena de ritmos envolventes y buen rollo.', 'housevibes.jpg', '2024-04-22', '22:30', 18.00, 'House', 'Se ruega respetar el dress code.', 3),
+('Noche de Techno Underground', '¡Sumérgete en el mundo del techno underground más genuino!', 'Una velada única llena de sonidos oscuros y atmósfera underground.', 'techno.jpg', '2024-04-25', '23:00', 15.00, 'Techno', 'No se permite el acceso con drogas o sustancias ilegales.', 4),
+('Salsa Night', '¡Ven a bailar salsa hasta el amanecer!', 'Una noche llena de ritmos latinos y sabor caribeño.', 'salsa.jpg', '2024-04-30', '22:00', 12.00, 'Salsa', 'Abierto a todos los públicos.', 5),
+('Fiesta Flamenco Fusion', '¡Disfruta de la fusión de flamenco con otros ritmos!', 'Una noche mágica llena de pasión y energía flamenca.', 'flamenco.jpg', '2024-05-05', '21:30', 20.00, 'Flamenco', 'Se ruega evitar el uso de flash durante el espectáculo.', 6),
+('Noche de Hip-Hop', '¡Ven a disfrutar de los mejores éxitos del hip-hop!', 'Una noche llena de ritmos urbanos y buena vibra.', 'hiphop.jpg', '2024-05-10', '23:00', 15.00, 'Hip-Hop', 'Prohibido el acceso con armas u objetos punzantes.', 7),
+('Rock Night', '¡Disfruta de los clásicos del rock en nuestra sala!', 'Una noche llena de energía y buen rollo al ritmo del mejor rock.', 'rock.jpg', '2024-05-15', '22:00', 18.00, 'Rock', 'Prohibido fumar en la pista de baile.', 8),
+('Noche de Bachata', '¡Ven a bailar bachata con nosotros!', 'Una noche llena de romanticismo y buen ambiente.', 'bachata.jpg', '2024-05-20', '23:00', 12.00, 'Bachata', 'Abierto a todos los públicos.', 9),
+('Fiesta Indie Rock', '¡Disfruta del indie rock en nuestra sala!', 'Una noche llena de buen rollo y música alternativa.', 'indierock.jpg', '2024-05-25', '22:30', 18.00, 'Indie Rock', 'Se ruega mantener el orden y respetar a los demás asistentes.', 10);
+
+INSERT INTO eventos (nombre, descripcion_corta, descripcion_extendida, foto, fecha, hora, precio, musica, normas, id_sala) VALUES
+('Fiesta de Verano', '¡Celebra el verano con nosotros!', 'Una noche llena de música, diversión y buen ambiente para dar la bienvenida al verano.', 'fiesta_verano.jpg', '2024-07-01', '22:00', 15.00, 'Pop', 'Prohibido el acceso a menores de 18 años.', 1),
+('Noche de Flamenco', '¡Disfruta de una noche flamenca!', 'Una velada llena de pasión y energía flamenca con los mejores artistas en vivo.', 'flamenco_noche.jpg', '2024-07-10', '21:00', 20.00, 'Flamenco', 'Se ruega evitar el uso de flash durante el espectáculo.', 3),
+('Concierto de Rock Alternativo', '¡Ven a disfrutar del mejor rock alternativo!', 'Una noche llena de energía y buena música con bandas de rock alternativo locales.', 'rock_alternativo.jpg', '2024-07-15', '20:30', 18.00, 'Rock Alternativo', 'Prohibido fumar en la sala.', 2),
+('Noche de Jazz en Vivo', '¡Déjate llevar por los ritmos del jazz!', 'Una noche llena de improvisación y buen jazz con artistas de renombre.', 'jazz_noche.jpg', '2024-07-20', '21:30', 25.00, 'Jazz', 'Se ruega mantener silencio durante las actuaciones.', 4),
+('Fiesta Latina', '¡Baila al ritmo de la música latina!', 'Una noche llena de salsa, bachata y reggaeton para disfrutar al máximo.', 'fiesta_latina.jpg', '2024-07-25', '23:00', 12.00, 'Música Latina', 'Abierto a todos los públicos.', 5),
+('Noche de Electrónica Underground', '¡Explora los sonidos más vanguardistas de la electrónica!', 'Una noche llena de música electrónica experimental y atmósfera underground.', 'electronica_underground.jpg', '2024-08-05', '23:30', 18.00, 'Electrónica Experimental', 'Prohibido el acceso con drogas o sustancias ilegales.', 6),
+('Concierto de Pop-Rock Nacional', '¡Disfruta de los éxitos del pop-rock español!', 'Una noche llena de música en directo con las mejores bandas del panorama nacional.', 'pop_rock_nacional.jpg', '2024-08-10', '20:00', 20.00, 'Pop-Rock Español', 'Se ruega respetar el espacio de los demás asistentes.', 7),
+('Noche de Hip-Hop Old School', '¡Viaja en el tiempo con los clásicos del hip-hop!', 'Una noche llena de nostalgia y buen rollo con los mejores temas del hip-hop old school.', 'hiphop_oldschool.jpg', '2024-08-15', '22:00', 15.00, 'Hip-Hop Old School', 'Prohibido el acceso con armas u objetos punzantes.', 8),
+('Fiesta Indie Electrónico', '¡Descubre la fusión entre el indie y la electrónica!', 'Una noche llena de ritmos electrónicos con toques alternativos y mucha diversión.', 'indie_electronico.jpg', '2024-08-20', '22:30', 18.00, 'Indie Electrónico', 'Se ruega mantener el orden y respetar a los demás asistentes.', 9),
+('Noche de Metal', '¡Sumérgete en el mundo del metal!', 'Una noche llena de distorsión y energía con las mejores bandas de metal del momento.', 'metal_noche.jpg', '2024-08-25', '21:00', 15.00, 'Metal', 'Se recomienda usar tapones para los oídos.', 10);
+
+-- OLD VALUES FOR SALA AND EVENTOS 
 
 INSERT INTO `sala` (`nombre`, `ciudad`, `direccion`, `tipo_recinto`, `aforo`) VALUES
 ('Palacio Real', 'Barcelona', 'Plaza de España 1', 'Palacio', 300),
@@ -60,6 +101,18 @@ INSERT INTO `eventos` (`nombre`, `descripcion_corta`, `descripcion_extendida`, `
 ('Festival de Teatro al Aire Libre', 'Una noche de drama bajo las estrellas', 'Disfruta de una selección de obras de teatro emocionantes y divertidas en el Bosque Encantado. Desde clásicos hasta producciones contemporáneas.', 'teatro.jpg', '2025-01-25', '18:30', 35.0, 'Entrada general: 35€. Se pueden comprar entradas en línea o en el lugar del evento.', 5),
 ('Taller de Arte para Niños', 'Una actividad creativa para los más pequeños', 'Trae a tus hijos al Jardín Encantado y únete a nuestro Taller de Arte, donde podrán explorar su creatividad y hacer obras de arte divertidas y coloridas. ¡Para toda la familia!', 'taller_arte.jpg', '2025-02-10', '14:00', 15.0, 'Edades recomendadas: 5-10 años. Se requiere inscripción previa.', 2);
 
+INSERT INTO eventos (nombre, descripcion_corta, descripcion_extendida, foto, fecha, hora, precio, musica, normas, id_sala)
+VALUES
+('Fiesta de Verano', '¡Celebra el verano con nosotros!', 'Una noche llena de música, diversión y buen ambiente para dar la bienvenida al verano.', 'fiesta_verano.jpg', '2024-07-01', '22:00', 15.00, 'Pop', 'Prohibido el acceso a menores de 18 años.', 1),
+('Noche de Flamenco', '¡Disfruta de una noche flamenca!', 'Una velada llena de pasión y energía flamenca con los mejores artistas en vivo.', 'flamenco_noche.jpg', '2024-07-10', '21:00', 20.00, 'Flamenco', 'Se ruega evitar el uso de flash durante el espectáculo.', 3),
+('Concierto de Rock Alternativo', '¡Ven a disfrutar del mejor rock alternativo!', 'Una noche llena de energía y buena música con bandas de rock alternativo locales.', 'rock_alternativo.jpg', '2024-07-15', '20:30', 18.00, 'Rock Alternativo', 'Prohibido fumar en la sala.', 2),
+('Noche de Jazz en Vivo', '¡Déjate llevar por los ritmos del jazz!', 'Una noche llena de improvisación y buen jazz con artistas de renombre.', 'jazz_noche.jpg', '2024-07-20', '21:30', 25.00, 'Jazz', 'Se ruega mantener silencio durante las actuaciones.', 4),
+('Fiesta Latina', '¡Baila al ritmo de la música latina!', 'Una noche llena de salsa, bachata y reggaeton para disfrutar al máximo.', 'fiesta_latina.jpg', '2024-07-25', '23:00', 12.00, 'Música Latina', 'Abierto a todos los públicos.', 5),
+('Noche de Electrónica Underground', '¡Explora los sonidos más vanguardistas de la electrónica!', 'Una noche llena de música electrónica experimental y atmósfera underground.', 'electronica_underground.jpg', '2024-08-05', '23:30', 18.00, 'Electrónica Experimental', 'Prohibido el acceso con drogas o sustancias ilegales.', 6),
+('Concierto de Pop-Rock Nacional', '¡Disfruta de los éxitos del pop-rock español!', 'Una noche llena de música en directo con las mejores bandas del panorama nacional.', 'pop_rock_nacional.jpg', '2024-08-10', '20:00', 20.00, 'Pop-Rock Español', 'Se ruega respetar el espacio de los demás asistentes.', 7),
+('Noche de Hip-Hop Old School', '¡Viaja en el tiempo con los clásicos del hip-hop!', 'Una noche llena de nostalgia y buen rollo con los mejores temas del hip-hop old school.', 'hiphop_oldschool.jpg', '2024-08-15', '22:00', 15.00, 'Hip-Hop Old School', 'Prohibido el acceso con armas u objetos punzantes.', 8),
+('Fiesta Indie Electrónico', '¡Descubre la fusión entre el indie y la electrónica!', 'Una noche llena de ritmos electrónicos con toques alternativos y mucha diversión.', 'indie_electronico.jpg', '2024-08-20', '22:30', 18.00, 'Indie Electrónico', 'Se ruega mantener el orden y respetar a los demás asistentes.', 9),
+('Noche de Metal', '¡Sumérgete en el mundo del metal!', 'Una noche llena de distorsión y energía con las mejores bandas de metal del momento.', 'metal_noche.jpg', '2024-08-25', '21:00', 15.00, 'Metal', 'Se recomienda usar tapones para los oídos.', 10);
 
 -- USUARIOS
 DROP TABLE IF EXISTS `usuarios`;
@@ -95,3 +148,17 @@ INSERT INTO `usuarios` (`nombre`, `apellido`, `email`, `contrasena`, `fecha_alta
 ('Pol', 'Fernández', 'pol@example.com', 'contraseña123', '2024-01-08'),
 ('Laia', 'Martínez', 'laia@example.com', 'contraseña123', '2024-01-09'),
 ('Pau', 'Soler', 'pau@example.com', 'contraseña123', '2024-01-10');
+
+-- COMPRA
+DROP TABLE `compra`;
+CREATE TABLE `compra` (
+  `id_compra` int(11) NOT NULL AUTO_INCREMENT,
+   `id_usuario` int(11) NOT NULL,
+  `id_evento` int(11) NOT NULL,
+  `nombre_usuario` varchar(45) NOT NULL,
+   `nombre_evento` varchar(45) NOT NULL,
+  `precio` float(10) NOT NULL,
+  `cantidad` int(10) NOT NULL,
+  PRIMARY KEY (`id_compra`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4;
+

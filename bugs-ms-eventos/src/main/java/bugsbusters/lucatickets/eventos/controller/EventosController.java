@@ -5,15 +5,18 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import bugsbusters.lucatickets.eventos.adapter.EventoAdapter;
+import bugsbusters.lucatickets.eventos.controller.error.EventoNotFoundException;
 import bugsbusters.lucatickets.eventos.model.Evento;
 import bugsbusters.lucatickets.eventos.service.EventosService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -61,6 +64,18 @@ public class EventosController {
 		return adaptador.de(eventos);
 	}
 
+	@Operation(summary = "BuscaEvento por ID", description = "Dado un ID, devuelve un objeto Evento", tags= {"evento"})
+	@ApiResponses(value = {
+			@ApiResponse(responseCode = "200", description = "Evento localizado", content = {
+					@Content(mediaType = "application/json", schema = @Schema(implementation = Evento.class)) }),
+			@ApiResponse(responseCode = "404", description = "Evento no encontrado (NO implementado)", content = @Content) })
+	@GetMapping("/{id}")
+	public Evento dameEventoPorId(
+			@Parameter(description = "ID del evento a localizar", required=true) 
+			@PathVariable Long id) {			
+		return servicio.dameEventoPorId(id).orElseThrow(EventoNotFoundException::new);
+	}
+	
 	/**
 	 * Añade un nuevo evento a la base de datos.
 	 *

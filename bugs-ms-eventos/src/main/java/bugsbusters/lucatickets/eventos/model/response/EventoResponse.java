@@ -56,6 +56,11 @@ public class EventoResponse implements Serializable {
 	 * El precio del evento.
 	 */
 	private double precio;
+	
+	/**
+	 * La música del evento.
+	 */
+	private String musica;
 
 	/**
 	 * Las normas del evento.

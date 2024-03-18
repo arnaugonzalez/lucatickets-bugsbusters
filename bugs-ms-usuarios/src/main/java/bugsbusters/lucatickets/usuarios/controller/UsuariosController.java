@@ -4,17 +4,19 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import bugsbusters.lucatickets.usuarios.adapter.UsuarioAdapter;
+import bugsbusters.lucatickets.usuarios.controller.error.UsuarioNotFoundException;
 import bugsbusters.lucatickets.usuarios.model.Usuario;
 import bugsbusters.lucatickets.usuarios.model.response.UsuarioResponse;
 import bugsbusters.lucatickets.usuarios.service.UsuariosService;
-import bugsbusters.lucatickets.usuarios.service.UsuariosServiceImpl;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -47,6 +49,19 @@ public class UsuariosController {
 		final List<Usuario> usuarios = servicio.listadoUsuarios();
 		return adaptador.de(usuarios);
 	}
+	
+	@Operation(summary = "BuscaUsuario por ID", description = "Dado un ID, devuelve un objeto Usuario", tags= {"evento"})
+	@ApiResponses(value = {
+			@ApiResponse(responseCode = "200", description = "Usuario localizado", content = {
+					@Content(mediaType = "application/json", schema = @Schema(implementation = Usuario.class)) }),
+			@ApiResponse(responseCode = "404", description = "Usuario no encontrado (NO implementado)", content = @Content) })
+	@GetMapping("/{id}")
+	public Usuario dameUsuarioPorId(
+			@Parameter(description = "ID del usuario a localizar", required=true) 
+			@PathVariable Long id) {			
+		return servicio.dameUsuarioPorId(id).orElseThrow(UsuarioNotFoundException::new);
+	}
+	
 	
 	@Operation(
 			summary = "Añadir usuario", description = "Añade un nuevo usuario a la base de datos", tags= {"usuario"})
