@@ -30,5 +30,4 @@ public class ResultadoCompraAdapter {
 		return resultado;
 
 	}
-
 }
