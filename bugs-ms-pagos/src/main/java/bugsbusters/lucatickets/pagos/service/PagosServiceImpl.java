@@ -85,7 +85,7 @@ public class PagosServiceImpl implements PagosService {
 			
 		
 		ResultadoCompraResponse resultadoCompra;
-		Compra compra = compraAdapter.crearCompra(
+		Compra compra = compraAdapter.de(
 					usuarioId, eventoId,
 					cantidad, resultadoPago);
 		if(resultadoPago.getStatus() == "200") {

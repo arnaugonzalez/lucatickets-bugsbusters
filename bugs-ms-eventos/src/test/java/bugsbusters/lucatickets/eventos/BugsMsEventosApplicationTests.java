@@ -34,6 +34,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import java.time.LocalTime;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 /**
 * Clase que contiene los casos de prueba para la aplicación de gestión de
@@ -208,4 +209,17 @@ class BugsMsEventosApplicationTests {
 		
 		assertEquals(longitud_listado_antes + 1, longitud_listado_despues);
 	 }
+	
+	@Test
+	public void testEventoPorId() {
+		logger.info("Test::testEventoPorId(): Comprobar que dameEventoPorID(id) y repo.findById(id) devuelvan el mismo evento");
+		
+		long id = 3;
+		
+		EventoResponse e1 = control.dameEventoPorId(id);
+		Optional<Evento> e2_optional = dao.findById(id);
+		EventoResponse e2 = adapter.de(e2_optional.get());
+		
+		assertEquals(e1, e2);
+	}
 }
