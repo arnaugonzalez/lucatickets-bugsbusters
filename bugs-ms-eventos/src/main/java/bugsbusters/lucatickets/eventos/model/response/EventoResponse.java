@@ -22,6 +22,12 @@ public class EventoResponse implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
+	/*
+	 * El identificador de evento.
+	 */
+	
+	private long id;
+	
 	/**
 	 * El nombre del evento.
 	 */

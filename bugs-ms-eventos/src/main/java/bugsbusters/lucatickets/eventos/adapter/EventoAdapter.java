@@ -23,6 +23,7 @@ public class EventoAdapter {
 
 	public EventoResponse de(Evento evento) {
 		EventoResponse eventoDTO = new EventoResponse();
+		eventoDTO.setId(evento.getId());
 		eventoDTO.setNombre(evento.getNombre());
 		eventoDTO.setDescripcion_corta(evento.getDescripcion_corta());
 		eventoDTO.setDescripcion_extendida(evento.getDescripcion_extendida());

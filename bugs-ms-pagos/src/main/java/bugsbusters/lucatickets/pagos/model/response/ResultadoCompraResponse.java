@@ -27,10 +27,10 @@ public class ResultadoCompraResponse {
 	private long idEvento;
 	
 	//
-	private String codigo;
+	private int codigo;
 	
 	//
-	private String mensaje;
+	private String[] mensaje;
 	
 	//
 	private Compra compra;

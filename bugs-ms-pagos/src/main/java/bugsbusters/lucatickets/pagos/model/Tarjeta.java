@@ -28,13 +28,13 @@ public class Tarjeta {
 	private String numeroTarjeta;
 	
 	@NotEmpty(message = "El mes de caducidad de la tarjeta no puede estar vacío")
-	private String mesCaducidad;
+	private int mesCaducidad;
 	
 	@NotEmpty(message = "El año de caducidad de la tarjeta no puede estar vacío")
-	private String añoCaducidad;
+	private int yearCaducidad;
 	
 	@NotEmpty(message = "El CVV de la tarjeta no puede estar vacío")
-	private String cvv;
+	private int cvv;
 	
 
 }

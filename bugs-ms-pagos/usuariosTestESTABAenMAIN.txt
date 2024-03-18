@@ -1,9 +1,12 @@
+=======
 package bugsbusters.lucatickets.usuarios;
  
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -96,5 +99,17 @@ class BugsMsUsuariosApplicationTests {
 		// comprobamos que ambos usuarios son iguales
 		assertTrue(usuarioTest == usuarioAdaptado);
 	}
- 
+	
+	@Test
+	public void testUsuarioPorId() {
+		logger.info("Test::testUsuarioPorId(): Comprobar que dameUsuarioPorID(id) y repo.findById(id) devuelvan el mismo usuario");
+		
+		long id = 3;
+		
+		UsuarioResponse u1 = control.dameUsuarioPorId(id);
+		Optional<Usuario> u2_optional = dao.findById(id);
+		UsuarioResponse u2 = adapter.de(u2_optional.get());
+		
+		assertEquals(u1, u2);
+	}
 }

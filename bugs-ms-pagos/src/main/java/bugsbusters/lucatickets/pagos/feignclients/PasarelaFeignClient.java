@@ -17,7 +17,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
  * 
  * Para hacer la llamada, se necesita de un servidor de Amazon Web Service.
  */
-@FeignClient(name = "pasarela", url = "http://banco-env.eba-ui2d2xf3.us-east-1.elasticbeanstalk.com/pasarela")
+@FeignClient(name = "pasarela", url = "http://banco-env.eba-ui2d2xf3.us-east-1.elasticbeanstalk.com/pasarela/compra/")
 public interface PasarelaFeignClient {
 	
 	/**
@@ -35,6 +35,6 @@ public interface PasarelaFeignClient {
 	 * @param pago: Pago a realizar
 	 * @return: devuelve la información del pago realizado
 	 */
-	@PostMapping("/validacion")
+	@PostMapping("")
 	public ResultadoPagoResponse datosValidacion(@RequestBody Pago pago);
 }

@@ -23,6 +23,7 @@ public class UsuarioAdapter {
 	 */
 	public UsuarioResponse de(Usuario usuario) {
 		UsuarioResponse usuarioDTO = new UsuarioResponse();
+		usuarioDTO.setId(usuario.getId());
 		usuarioDTO.setNombre(usuario.getNombre());
 		usuarioDTO.setApellido(usuario.getApellido());
 		usuarioDTO.setEmail(usuario.getEmail());

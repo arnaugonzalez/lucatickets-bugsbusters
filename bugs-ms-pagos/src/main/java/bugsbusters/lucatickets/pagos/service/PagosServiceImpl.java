@@ -75,7 +75,7 @@ public class PagosServiceImpl implements PagosService {
 		Pago pago = pagoAdapter.crearPago(
 						"LucaTickets",
 						"Compra entradas",
-						cantidad,
+						evento.getPrecio(),
 						tarjeta);
 		
 		
@@ -84,11 +84,12 @@ public class PagosServiceImpl implements PagosService {
 		
 			
 		
-		ResultadoCompraResponse resultadoCompra;
+//		ResultadoCompraResponse resultadoCompra;
+		
 		Compra compra = compraAdapter.de(
-					usuarioId, eventoId,
-					cantidad, resultadoPago);
-		if(resultadoPago.getStatus() == "200") {
+					usuario, evento,
+					cantidad, evento.getPrecio());
+		if(resultadoPago.getStatus() == 200) {
 			repo.save(compra);			
 		}
 		return resultadoCompraAdapter

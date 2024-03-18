@@ -19,6 +19,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 public class ResultadoPagoResponse implements Serializable {
+	
 	private static final long serialVersionUID = 1L;
 	
 	 /**
@@ -29,26 +30,29 @@ public class ResultadoPagoResponse implements Serializable {
     /**
      * El estado del pago.
      */
-    private String status;
+    private int status;
     
     /**
      * El mensaje de error del pago.
      */
     private String error;
+ 
     
     /**
      * El mensaje informativo del pago.
      */
-    private String message;
+    private String[] message;
     
+      
     /**
      * La información del pago.
      */
     private Pago info;
     
+    
     /**
      * Información adicional del pago.
      */
-    private String info_adicional;
+    private String infoadicional;
 
 }
