@@ -43,4 +43,8 @@ public class Pago {
 	@NotEmpty(message = "la cantidad no puede estar vacío")
 	private double cantidad;
 
+	
+	
+	
+	
 }
