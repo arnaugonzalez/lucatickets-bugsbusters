@@ -17,6 +17,6 @@ public interface UsuarioFeignClient {
 	 * @param id: id del usuario que queremos encontrar
 	 * @return: usuario en base a su id
 	 */
-	@GetMapping("usuarios/{id}")
-	public UsuarioResponse getEvento(@PathVariable Long id);
+	@GetMapping("/usuarios/{id}")
+	public UsuarioResponse getUsuario(@PathVariable Long id);
 }

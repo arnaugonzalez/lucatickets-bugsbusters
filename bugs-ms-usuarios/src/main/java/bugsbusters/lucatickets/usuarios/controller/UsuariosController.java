@@ -1,6 +1,7 @@
 package bugsbusters.lucatickets.usuarios.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -56,10 +57,13 @@ public class UsuariosController {
 					@Content(mediaType = "application/json", schema = @Schema(implementation = Usuario.class)) }),
 			@ApiResponse(responseCode = "404", description = "Usuario no encontrado (NO implementado)", content = @Content) })
 	@GetMapping("/{id}")
-	public Usuario dameUsuarioPorId(
+	public UsuarioResponse dameUsuarioPorId(
 			@Parameter(description = "ID del usuario a localizar", required=true) 
 			@PathVariable Long id) {			
-		return servicio.dameUsuarioPorId(id).orElseThrow(UsuarioNotFoundException::new);
+		Optional<Usuario> respuesta = servicio.dameUsuarioPorId(id);
+		if(respuesta.isPresent())
+			return adaptador.de(respuesta.get());
+		else throw new UsuarioNotFoundException(id);
 	}
 	
 	

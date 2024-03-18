@@ -1,6 +1,7 @@
 package bugsbusters.lucatickets.eventos.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
@@ -70,10 +71,13 @@ public class EventosController {
 					@Content(mediaType = "application/json", schema = @Schema(implementation = Evento.class)) }),
 			@ApiResponse(responseCode = "404", description = "Evento no encontrado (NO implementado)", content = @Content) })
 	@GetMapping("/{id}")
-	public Evento dameEventoPorId(
+	public EventoResponse dameEventoPorId(
 			@Parameter(description = "ID del evento a localizar", required=true) 
-			@PathVariable Long id) {			
-		return servicio.dameEventoPorId(id).orElseThrow(EventoNotFoundException::new);
+			@PathVariable Long id) {
+		Optional<Evento> respuesta = servicio.dameEventoPorId(id);
+		if(respuesta.isPresent())
+			return adaptador.de(respuesta.get());
+		else throw new EventoNotFoundException(id);
 	}
 	
 	/**

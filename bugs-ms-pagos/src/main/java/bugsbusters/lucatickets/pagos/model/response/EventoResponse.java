@@ -58,6 +58,11 @@ public class EventoResponse implements Serializable {
 	private double precio;
 
 	/**
+	 * La música del evento.
+	 */
+	private String musica;
+	
+	/**
 	 * Las normas del evento.
 	 */
 	private String normas;
@@ -72,8 +77,4 @@ public class EventoResponse implements Serializable {
 	 */
 	private String ciudad;
 	
-	/**
-	 * La música del evento.
-	 */
-	private String musica;
 }

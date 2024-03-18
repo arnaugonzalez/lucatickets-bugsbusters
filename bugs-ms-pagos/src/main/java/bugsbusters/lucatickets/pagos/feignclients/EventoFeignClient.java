@@ -5,6 +5,7 @@ import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import bugsbusters.lucatickets.pagos.model.Evento;
 import bugsbusters.lucatickets.pagos.model.response.EventoResponse;
 
 /**
@@ -18,6 +19,6 @@ public interface EventoFeignClient {
 	 * @param id: id del evento que queremos encontrar
 	 * @return: evento en base a su id
 	 */
-	@GetMapping("eventos/{id}")
+	@GetMapping("/eventos/{id}")
 	public EventoResponse getEvento(@PathVariable Long id);
 }

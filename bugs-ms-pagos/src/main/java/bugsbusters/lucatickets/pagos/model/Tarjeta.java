@@ -14,8 +14,7 @@ import lombok.NoArgsConstructor;
  * Tarjeta del sistema LucaTickets
 
  */
-@Entity
-@Table(name="compras")
+
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
