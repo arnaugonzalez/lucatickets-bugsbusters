@@ -1,6 +1,7 @@
 package bugsbusters.lucatickets.eventos.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,6 +28,14 @@ public class EventosServiceImpl implements EventosService {
 	@Override
 	public List<Evento> listadoEventos() {
 		return repo.findAll();
+	}
+	
+	/**
+	 * Método para buscar un Evento por ID, si existe
+	 */
+	@Override
+	public Optional<Evento> dameEventoPorId(long id) {
+		return repo.findById(id);
 	}
 	
 	/**
