@@ -1,5 +1,6 @@
 package bugsbusters.lucatickets.pagos;
 
+
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 
@@ -42,5 +43,3 @@ class BugsMsPagosApplicationTests {
                 .andExpect(jsonPath("$.message").value(errorMessage))
                 .andExpect(jsonPath("$.status").value("400"));
     }
-
-}
