@@ -2,7 +2,7 @@ package bugsbusters.lucatickets.pagos.model.response;
 
 import java.io.Serializable;
 
-import bugsbusters.lucatickets.pagos.model.pago;
+import bugsbusters.lucatickets.pagos.model.Pago;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
