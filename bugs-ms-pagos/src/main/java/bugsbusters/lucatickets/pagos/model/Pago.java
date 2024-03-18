@@ -41,6 +41,6 @@ public class Pago {
 	private String concepto;
 	
 	@NotEmpty(message = "la cantidad no puede estar vacío")
-	private double cantidad;
+	private int cantidad;
 
 }

@@ -17,7 +17,7 @@ import lombok.NoArgsConstructor;
 
  */
 @Entity
-@Table(name="compras")
+@Table(name="compra")
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
@@ -28,17 +28,12 @@ public class Compra {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id_compra")
 	private Long id_compra;
-	
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id_usuario")
+
+	@NotEmpty(message = "Debe haber un id para el usuario que compra")
 	private Long id_usuario;
 	
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id_evento")
+	@NotEmpty(message = "Debe haber un id para el evento del que se compran entradas")
 	private Long id_evento;
-	
 	
 	@NotEmpty(message = "El nombre del usuario no puede estar vacío")
 	private String nombre_usuario;
