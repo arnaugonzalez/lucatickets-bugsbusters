@@ -25,9 +25,17 @@ public class PagosController {
 	PagosService service;
 	
 	@Operation(summary = "Pagar evento", description = "Realiza la transacción para el pago del evento", tags = {
-	"evento" })
-	@ApiResponse(responseCode = "200", description = "Pago realizado")
-	@ApiResponse(responseCode = "500", description = "El servidor no está disponible", content = @Content)
+	"pago" })
+	@ApiResponse(responseCode = "200.0001", description = "Transacción correcta")
+	@ApiResponse(responseCode = "400.0001", description = "No hay fondos suficientes en la cuenta")
+	@ApiResponse(responseCode = "400.0002", description = "No se encuentran los datos del cliente")
+	@ApiResponse(responseCode = "400.0003", description = "El número de la tarjeta no es válido")
+	@ApiResponse(responseCode = "400.0004", description = "El formato del cvv no es válido")
+	@ApiResponse(responseCode = "400.0005", description = "El mes (caducidad) no es correcto")
+	@ApiResponse(responseCode = "400.0006", description = "El año (caducidad) no es correcto")
+	@ApiResponse(responseCode = "400.0007", description = "La fecha de caducidad debe ser posterior al día actual")
+	@ApiResponse(responseCode = "400.0008", description = "El formato del nombre no es correcto")
+	@ApiResponse(responseCode = "500.0001", description = "El sistema se encuentra inestable")
 	@PostMapping("/{idUsuario}/pagar")
 	public ResultadoCompra pagarEvento(@PathVariable Long idUsuario,
 										@RequestParam Long idEvento,
