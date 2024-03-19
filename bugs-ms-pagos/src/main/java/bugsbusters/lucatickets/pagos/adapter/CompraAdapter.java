@@ -1,18 +1,26 @@
 package bugsbusters.lucatickets.pagos.adapter;
 
+import org.springframework.stereotype.Component;
+
 import bugsbusters.lucatickets.pagos.model.Compra;
+import bugsbusters.lucatickets.pagos.model.response.EventoResponse;
+import bugsbusters.lucatickets.pagos.model.response.UsuarioResponse;
 
-
+@Component
 public class CompraAdapter {
-    public static Compra de(Compra compra) {
+	
+    public Compra de(UsuarioResponse usuario,
+    							EventoResponse evento,
+    							Integer cantidad,
+    							double precio) {
+    	
         Compra compraDTO = new Compra();
-        compraDTO.setId_compra(compra.getId_compra());
-        compraDTO.setId_usuario(compra.getId_usuario());
-        compraDTO.setId_evento(compra.getId_evento());
-        compraDTO.setNombre_usuario(compra.getNombre_usuario());
-        compraDTO.setNombre_evento(compra.getNombre_evento());
-        compraDTO.setPrecio(compra.getPrecio());
-        compraDTO.setCantidad(compra.getCantidad());
+        compraDTO.setId_usuario(usuario.getId());
+        compraDTO.setId_evento(evento.getId());
+        compraDTO.setNombre_usuario(usuario.getNombre() + " " + usuario.getApellido());
+        compraDTO.setNombre_evento(evento.getNombre());
+        compraDTO.setPrecio(precio);
+        compraDTO.setCantidad(cantidad);
 
         return compraDTO;
     }

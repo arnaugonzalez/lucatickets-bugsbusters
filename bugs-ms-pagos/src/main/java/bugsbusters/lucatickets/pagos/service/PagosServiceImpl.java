@@ -72,10 +72,11 @@ public class PagosServiceImpl implements PagosService {
 			throw new EventoNotFoundException(eventoId);
 		}
 	
+		double importe = evento.getPrecio() * cantidad;
 		Pago pago = pagoAdapter.crearPago(
 						"LucaTickets",
 						"Compra entradas",
-						cantidad,
+						importe,
 						tarjeta);
 		
 		
@@ -84,11 +85,12 @@ public class PagosServiceImpl implements PagosService {
 		
 			
 		
-		ResultadoCompraResponse resultadoCompra;
+//		ResultadoCompraResponse resultadoCompra;
+		
 		Compra compra = compraAdapter.de(
-					usuarioId, eventoId,
-					cantidad, resultadoPago);
-		if(resultadoPago.getStatus() == "200") {
+					usuario, evento,
+					cantidad, importe);
+		if(resultadoPago.getStatus().equals("200")) {
 			repo.save(compra);			
 		}
 		return resultadoCompraAdapter

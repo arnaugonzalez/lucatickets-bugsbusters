@@ -226,4 +226,36 @@ class BugsMsEventosApplicationTests {
 		
 		assertEquals(e1, e2);
 	}
+	
+	@Test
+	public void testMostrarListadoEventosDespuesAgregar() {
+	    logger.info("Test::testMostrarListadoEventosDespuesAgregar(): Verificar si se muestra correctamente el listado de eventos después de agregar un nuevo evento");
+
+	    // Obtener la longitud del listado de eventos antes de agregar un nuevo evento
+	    int longitudAntes = dao.findAll().size();
+
+	    //agregamos un nuevo evento
+	    Sala salaA = new Sala(1L, "Sala A", "Villarobledo",
+	                "Calle de la birra", "Al aire libre", 600);
+
+	    Evento eventoTest = new Evento();
+	    eventoTest.setId(9999L);
+	    eventoTest.setNombre("Clap");
+	    eventoTest.setDescripcion_corta("Disco Mataró");
+	    eventoTest.setDescripcion_extendida("Discoteca multitudinaria, hacen varios tipos de eventos con variedad musical amplia");
+	    eventoTest.setFoto("https://www.capgros.com/uploads/s1/55/54/29/clap_11_1280x644.jpeg");
+	    eventoTest.setFecha(LocalDate.parse("2024-04-23"));
+	    eventoTest.setHora(LocalTime.parse("23:59:00"));
+	    eventoTest.setPrecio(18.0);
+	    eventoTest.setNormas("Código de vestimenta y prohibido acosar a nadie");
+	    eventoTest.setSala(salaA);
+
+	    control.anadirEvento(eventoTest);
+
+	    // Obtener la longitud del listado de eventos después de agregar un nuevo evento
+	    int longitudDespues = dao.findAll().size();
+
+	    // Verificar que la longitud después de agregar sea mayor que la longitud antes de agregar
+	    assertTrue(longitudDespues > longitudAntes);
+	}
 }

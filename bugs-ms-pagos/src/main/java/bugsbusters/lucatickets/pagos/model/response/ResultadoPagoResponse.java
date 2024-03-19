@@ -1,14 +1,12 @@
 package bugsbusters.lucatickets.pagos.model.response;
 
 import java.io.Serializable;
-
+import java.util.List;
 
 import bugsbusters.lucatickets.pagos.model.Pago;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-
 
 /**
  * Clase que representa la respuesta de un pago.
@@ -19,6 +17,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 public class ResultadoPagoResponse implements Serializable {
+	
 	private static final long serialVersionUID = 1L;
 	
 	 /**
@@ -35,20 +34,23 @@ public class ResultadoPagoResponse implements Serializable {
      * El mensaje de error del pago.
      */
     private String error;
+ 
     
     /**
      * El mensaje informativo del pago.
      */
-    private String message;
+    private List<String> message;
     
+      
     /**
      * La información del pago.
      */
     private Pago info;
     
+    
     /**
      * Información adicional del pago.
      */
-    private String info_adicional;
+    private String infoadicional;
 
 }

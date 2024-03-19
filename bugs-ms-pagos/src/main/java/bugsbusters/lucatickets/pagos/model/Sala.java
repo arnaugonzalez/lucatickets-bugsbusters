@@ -20,8 +20,6 @@ import lombok.NoArgsConstructor;
  * recinto, aforo, etc.
  */
 
-@Entity
-@Table(name = "sala")
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
@@ -31,9 +29,10 @@ public class Sala {
 	 * Identificador único de la sala.
 	 */
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id_sala")
+//	@Id
+//	@GeneratedValue(strategy = GenerationType.IDENTITY)
+//	@Column(name = "id_sala")
+	@NotEmpty(message="es el ID de la sala, debe ir relleno")
 	private Long id;
 
 	/**

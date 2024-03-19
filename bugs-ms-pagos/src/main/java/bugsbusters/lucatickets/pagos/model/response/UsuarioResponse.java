@@ -13,6 +13,12 @@ public class UsuarioResponse implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
+	/*
+	 * El identificador de evento.
+	 */
+	
+	private long id;
+	
 	private String nombre;
 	private String apellido;
 	private String email;
