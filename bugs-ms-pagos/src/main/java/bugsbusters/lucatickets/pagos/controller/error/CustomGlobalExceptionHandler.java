@@ -19,7 +19,6 @@ import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
@@ -135,6 +134,7 @@ public class CustomGlobalExceptionHandler extends ResponseEntityExceptionHandler
 	//  --> chatgpt help: 
 	// make a method that get this string as a parmeter
 	// and return the next thing after "error\":\" and until it founds another \
+	
 	public String extractErrorMessage(String input) {
         String errorKeyword = "\"error\":\"";
         int startIndex = input.indexOf(errorKeyword);

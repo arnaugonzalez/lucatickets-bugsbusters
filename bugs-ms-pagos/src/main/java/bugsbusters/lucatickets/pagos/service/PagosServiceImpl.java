@@ -8,13 +8,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.MethodArgumentNotValidException;
 
 import bugsbusters.lucatickets.pagos.adapter.CompraAdapter;
 import bugsbusters.lucatickets.pagos.adapter.PagoAdapter;
 import bugsbusters.lucatickets.pagos.adapter.ResultadoCompraAdapter;
 import bugsbusters.lucatickets.pagos.controller.error.EventoNotFoundException;
-import bugsbusters.lucatickets.pagos.controller.error.PagoException;
 import bugsbusters.lucatickets.pagos.controller.PagosController;
 import bugsbusters.lucatickets.pagos.controller.error.UsuarioNotFoundException;
 import bugsbusters.lucatickets.pagos.feignclients.EventoFeignClient;
@@ -29,7 +27,6 @@ import bugsbusters.lucatickets.pagos.model.response.ResultadoPagoResponse;
 import bugsbusters.lucatickets.pagos.model.response.UsuarioResponse;
 import bugsbusters.lucatickets.pagos.repository.PagosRepository;
 import feign.FeignException;
-import feign.FeignException.FeignClientException;
 
 @Service
 public class PagosServiceImpl implements PagosService {
