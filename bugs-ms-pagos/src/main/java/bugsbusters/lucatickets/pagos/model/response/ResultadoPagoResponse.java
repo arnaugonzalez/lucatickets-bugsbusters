@@ -1,14 +1,12 @@
 package bugsbusters.lucatickets.pagos.model.response;
 
 import java.io.Serializable;
-
+import java.util.List;
 
 import bugsbusters.lucatickets.pagos.model.Pago;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-
 
 /**
  * Clase que representa la respuesta de un pago.
@@ -30,7 +28,7 @@ public class ResultadoPagoResponse implements Serializable {
     /**
      * El estado del pago.
      */
-    private int status;
+    private String status;
     
     /**
      * El mensaje de error del pago.
@@ -41,7 +39,7 @@ public class ResultadoPagoResponse implements Serializable {
     /**
      * El mensaje informativo del pago.
      */
-    private String[] message;
+    private List<String> message;
     
       
     /**

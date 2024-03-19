@@ -1,5 +1,8 @@
 package bugsbusters.lucatickets.pagos.adapter;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.stereotype.Component;
 
 import bugsbusters.lucatickets.pagos.model.Compra;
@@ -28,13 +31,16 @@ public class ResultadoCompraAdapter {
 		resultado.setIdCompra(compra.getId_compra());
 		resultado.setIdUsuario(compra.getId_usuario());
 		resultado.setIdEvento(compra.getId_evento());
-		resultado.setCodigo(resultadoPagoResponse.getStatus());
+		//leer 8 caracteres message
+		resultado.setCodigo(resultadoPagoResponse.getError()
+				.substring(0, Math.min(resultadoPagoResponse.getError().length(), 7)));
 		
-		String[] mensajes = new String[resultadoPagoResponse.getMessage().length];
-		int i = 0;
-		for(String m: resultadoPagoResponse.getMessage()) 
-			mensajes[i++] = m;
-		resultado.setMensaje(mensajes);
+//		List<String> mensajes = new ArrayList<String>();
+//		int i = 0;
+//		for(String m: resultadoPagoResponse.getMessage())
+//			mensajes.add(m);
+		resultado.setMensaje(resultadoPagoResponse.getError()
+				.substring(9, resultadoPagoResponse.getError().length()));
 
 		resultado.setCompra(compra);
 
