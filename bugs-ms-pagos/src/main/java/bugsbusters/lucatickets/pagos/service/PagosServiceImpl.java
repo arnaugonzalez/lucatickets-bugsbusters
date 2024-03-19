@@ -89,11 +89,7 @@ public class PagosServiceImpl implements PagosService {
 		} catch (FeignException ex) {
 			throw ex;
 		}
-			
-		
-		
-//		ResultadoCompraResponse resultadoCompra;
-		
+					
 		Compra compra = compraAdapter.de(
 					usuario, evento,
 					cantidad, importe);
@@ -105,23 +101,5 @@ public class PagosServiceImpl implements PagosService {
 								resultadoPago,
 								compra);
 	}
-	
-	//ayuda ChatGPT
-	public String parseaError(Optional<ByteBuffer> byteBuffer) {
-        
-		if(byteBuffer.isEmpty())
-			return "Error de Lechón: Valor vacío";
-		else {
-			ByteBuffer bytes = byteBuffer.get();
-			// Decode ByteBuffer to a string
-			String responseBody = StandardCharsets.UTF_8.decode(bytes).toString();
-
-			// Split the string by the delimiter
-			String[] values = responseBody.split("\n");
-
-			return values[2];
-		}
-		
-    }
 	
 }
