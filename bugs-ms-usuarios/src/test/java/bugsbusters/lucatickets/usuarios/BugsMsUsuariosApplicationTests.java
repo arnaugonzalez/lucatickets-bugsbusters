@@ -1,9 +1,11 @@
 package bugsbusters.lucatickets.usuarios;
  
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -93,8 +95,43 @@ class BugsMsUsuariosApplicationTests {
  
 		UsuarioResponse usuarioAdaptado = adapter.de(usuario);
  
+		Boolean resultado = (usuarioTest.getNombre().equals(usuarioAdaptado.getNombre())) 
+				&& (usuarioTest.getApellido().equals(usuarioAdaptado.getApellido())) 
+				&&(usuarioTest.getContrasena().equals(usuarioAdaptado.getContrasena()));
+ 
 		// comprobamos que ambos usuarios son iguales
-		assertTrue(usuarioTest == usuarioAdaptado);
+		assertTrue(resultado);
+	}
+ 
+	@Test
+	public void testUsuarioPorId() {
+		logger.info("Test::testUsuarioPorId(): Comprobar que dameUsuarioPorID(id) y repo.findById(id) devuelvan el mismo usuario");
+		
+		long id = 3;
+		
+		UsuarioResponse u1 = control.dameUsuarioPorId(id);
+		Optional<Usuario> u2_optional = dao.findById(id);
+		UsuarioResponse u2 = adapter.de(u2_optional.get());
+		
+		assertEquals(u1, u2);
+	}
+	
+	@Test
+    public void testMostrarListadoUsuariosDespuesAgregar() {
+        logger.info("Test::testMostrarListadoUsuariosDespuesAgregar(): Verificar si se muestra correctamente el listado de usuarios después de agregar un nuevo usuario");
+
+        // Obtener la longitud del listado de usuarios antes de agregar un nuevo usuario
+        int longitudAntes = control.listadoUsuarios().size();
+
+        //agregamos un nuevo usuario
+        Usuario usuarioTest = new Usuario(5555L, "Juan", "Garcia", "juangarcia@mail.com", "clave123", "2000-05-12");
+        control.anadirUsuario(usuarioTest);
+
+        // Obtener la longitud del listado de usuarios después de agregar un nuevo usuario
+        int longitudDespues = control.listadoUsuarios().size();
+
+        // Verificar que la longitud después de agregar sea mayor que la longitud antes de agregarlo
+        assertTrue(longitudDespues > longitudAntes);
 	}
  
 }
