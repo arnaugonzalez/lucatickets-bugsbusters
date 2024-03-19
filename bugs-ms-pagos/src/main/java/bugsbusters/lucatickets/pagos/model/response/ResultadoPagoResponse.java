@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.List;
 
 import bugsbusters.lucatickets.pagos.model.Pago;
+import jakarta.persistence.Entity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

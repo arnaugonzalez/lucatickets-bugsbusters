@@ -31,16 +31,17 @@ public class ResultadoCompraAdapter {
 		resultado.setIdCompra(compra.getId_compra());
 		resultado.setIdUsuario(compra.getId_usuario());
 		resultado.setIdEvento(compra.getId_evento());
+		
 		//leer 8 caracteres message
 		resultado.setCodigo(resultadoPagoResponse.getError()
-				.substring(0, Math.min(resultadoPagoResponse.getError().length(), 7)));
+				.substring(0, Math.min(resultadoPagoResponse.getError().length(), 8)));
 		
 //		List<String> mensajes = new ArrayList<String>();
 //		int i = 0;
 //		for(String m: resultadoPagoResponse.getMessage())
 //			mensajes.add(m);
 		resultado.setMensaje(resultadoPagoResponse.getError()
-				.substring(9, resultadoPagoResponse.getError().length()));
+				.substring(10, resultadoPagoResponse.getError().length()));
 
 		resultado.setCompra(compra);
 
