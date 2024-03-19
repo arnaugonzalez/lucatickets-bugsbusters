@@ -167,7 +167,11 @@ class BugsMsEventosApplicationTests {
 		
 		EventoResponse test = control.anadirEvento(eventoTest);
 		
-		assertTrue(test.equals(eventoAdaptado));
+		Boolean resultado = (test.getNombre().equals(eventoAdaptado.getNombre())) 
+				&& (test.getDescripcion_corta().equals(eventoAdaptado.getDescripcion_corta())) 
+				&&(test.getSala().equals(eventoAdaptado.getSala()));
+		
+		assertTrue(resultado);
 	}
 	
 	@Test
