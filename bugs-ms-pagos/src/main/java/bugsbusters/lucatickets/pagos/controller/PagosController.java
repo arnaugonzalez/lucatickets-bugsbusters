@@ -12,22 +12,36 @@ import bugsbusters.lucatickets.pagos.model.Tarjeta;
 import bugsbusters.lucatickets.pagos.model.response.ResultadoCompraResponse;
 import bugsbusters.lucatickets.pagos.service.PagosService;
 import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.media.Content;
-import io.swagger.v3.oas.annotations.media.Schema;
+//import io.swagger.v3.oas.annotations.media.Content;
+//import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
-import io.swagger.v3.oas.annotations.responses.ApiResponses;
+//import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
+/**
+ * Controlador para la gestión de pagos.
+ */
 @RestController
 @RequestMapping("/pago")
 @Tag(name = "pago", description = "Controlador para la gestión de pagos")
 public class PagosController {
-	
+
 	@Autowired
 	PagosService service;
-	
+
+	/**
+	 * Realiza la transacción para el pago del evento.
+	 *
+	 * @param idUsuario El ID del usuario que realiza el pago.
+	 * @param idEvento  El ID del evento que se va a pagar.
+	 * @param cantidad  La cantidad de entradas que se van a comprar.
+	 * @param tarjeta   Objeto de tarjeta que contiene los detalles de la tarjeta de
+	 *                  crédito.
+	 * @return Objeto de respuesta que indica el resultado de la transacción de
+	 *         pago.
+	 */
 	@Operation(summary = "Pagar evento", description = "Realiza la transacción para el pago del evento", tags = {
-	"pago" })
+			"pago" })
 	@ApiResponse(responseCode = "200.0001", description = "Transacción correcta")
 	@ApiResponse(responseCode = "400.0001", description = "No hay fondos suficientes en la cuenta")
 	@ApiResponse(responseCode = "400.0002", description = "No se encuentran los datos del cliente")
@@ -39,11 +53,9 @@ public class PagosController {
 	@ApiResponse(responseCode = "400.0008", description = "El formato del nombre no es correcto")
 	@ApiResponse(responseCode = "500.0001", description = "El sistema se encuentra inestable")
 	@PostMapping("/{idUsuario}/pagar")
-	public ResultadoCompraResponse pagarEvento(@PathVariable Long idUsuario,
-										@RequestParam Long idEvento,
-										@RequestParam(defaultValue = "1") Integer cantidad,
-										@RequestBody Tarjeta tarjeta) {
-		
+	public ResultadoCompraResponse pagarEvento(@PathVariable Long idUsuario, @RequestParam Long idEvento,
+			@RequestParam(defaultValue = "1") Integer cantidad, @RequestBody Tarjeta tarjeta) {
+
 		return service.pagarEvento(idUsuario, idEvento, cantidad, tarjeta);
 	}
 }
