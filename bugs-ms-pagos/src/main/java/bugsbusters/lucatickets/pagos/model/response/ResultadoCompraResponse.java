@@ -1,5 +1,8 @@
 package bugsbusters.lucatickets.pagos.model.response;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import bugsbusters.lucatickets.pagos.model.Compra;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -27,10 +30,10 @@ public class ResultadoCompraResponse {
 	private long idEvento;
 	
 	//
-	private int codigo;
+	private String codigo;
 	
 	//
-	private String[] mensaje;
+	private String mensaje;
 	
 	//
 	private Compra compra;

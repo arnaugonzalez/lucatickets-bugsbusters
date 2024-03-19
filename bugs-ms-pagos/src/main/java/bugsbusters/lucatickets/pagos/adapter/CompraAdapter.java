@@ -17,7 +17,7 @@ public class CompraAdapter {
         Compra compraDTO = new Compra();
         compraDTO.setId_usuario(usuario.getId());
         compraDTO.setId_evento(evento.getId());
-        compraDTO.setNombre_usuario(usuario.getNombre() + usuario.getApellido());
+        compraDTO.setNombre_usuario(usuario.getNombre() + " " + usuario.getApellido());
         compraDTO.setNombre_evento(evento.getNombre());
         compraDTO.setPrecio(precio);
         compraDTO.setCantidad(cantidad);
