@@ -276,4 +276,27 @@ class BugsMsEventosApplicationTests {
 		assertTrue(longitudDespues > longitudAntes);
 
 	}
+	
+	/**
+	 * Prueba para verificar si el listado de eventos devuelto por el servicio es
+	 * igual a la longitud de la base de datos filtrado por un género.
+	 *
+	 * <p>Se verifica que el número de eventos devueltos por el servicio coincida con el número de eventos en la base de datos filtrado por género.</p>
+	 */
+	
+	@Test
+	public void longitudListadoPorGenero() {
+		logger.info("Test::longitudListadoPorGenero(): Que la cantidad de eventos del género a mostrar por el servicio sea igual a la longitud de la base de datos del género");
+		
+		String musica = "Rock";
+		//número de eventos del género en la base de datos.
+		List<Evento> listado = dao.findByMusica(musica);
+		
+		//número de eventos del género devueltos por un servicio
+		List<EventoResponse> test = control.listadoEventosPorMusica(musica);
+
+		//esta prueba unitaria verifica si el número de eventos devueltos por género por un servicio es igual al número de eventos en la base de datos por un género.
+		assertTrue(test.size() == listado.size());
+	 }
+	
 }
