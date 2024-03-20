@@ -44,5 +44,12 @@ public interface EventosService {
 	 * @return Evento añadido
 	 */
 	public Evento anadirEvento(Evento evento);
+	
+	/**
+	 * Método para filtrar la lista de eventos por género de música
+	 * @param musica El string música para filtrar por género
+	 * @return La lista de eventos filtrados por género
+	 */
+	public List<Evento> listadoEventosPorMusica(String musica);
 
 }

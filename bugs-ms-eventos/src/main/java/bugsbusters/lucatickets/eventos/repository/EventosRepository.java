@@ -12,6 +12,12 @@ import bugsbusters.lucatickets.eventos.model.Evento;
  */
 
 public interface EventosRepository extends JpaRepository<Evento, Long> {
+	
+	/**
+	 * Método predefinido para filtrar la lista de eventos por género de música
+	 * @return La lista de eventos filtrados por género
+	 */
+	List<Evento> findByMusica(String musica);
 
 	List<Evento> findByNombre(String nombre);
 	

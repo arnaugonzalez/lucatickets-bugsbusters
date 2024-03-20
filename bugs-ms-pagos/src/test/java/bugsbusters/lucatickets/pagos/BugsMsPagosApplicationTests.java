@@ -3,21 +3,16 @@ package bugsbusters.lucatickets.pagos;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-
 import org.junit.jupiter.api.BeforeEach;
+
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
-
 import jakarta.ws.rs.core.MediaType;
 
-
-/**
- * Clase que contiene pruebas unitarias para la aplicación de pagos.
- */
 @SpringBootTest
 @AutoConfigureMockMvc
 class BugsMsPagosApplicationTests {
@@ -107,13 +102,36 @@ class BugsMsPagosApplicationTests {
 //				+ "donde x es un valor entre 1-5\",\"No llegas ni a lechón. Eres triste, torpe y polluelo.\"]}";
 
 		mockMvc.perform(
+
 				post("/pago/1/pagar?idEvento=1")
 				.content(tarjetaJson).contentType(MediaType.APPLICATION_JSON))
 //		.andExpect(content().json(expected))
 				.andExpect(jsonPath("$.message").value(errorMessage))
 				.andExpect(jsonPath("$.status").value("400"));
 	}
-	
+	 
+	 	@Test
+		public void testAnioCaducidadNoValido() throws Exception {
+			String errorMessage = "El año de caducidad de la tarjeta no es válido";
+
+			String tarjetaJson = "{\r\n" 
+					+ "  \"nombreTitular\": \"Mireia\",\r\n"
+					+ "  \"numeroTarjeta\": \"4242 4242 4242 4242\",\r\n" 
+					+ "  \"mesCaducidad\": \"12\",\r\n"
+					+ "  \"yearCaducidad\": \"2000\",\r\n"  // Año de caducidad no válido
+					+ "  \"cvv\": \"123\",\r\n" 
+					+ "  \"emisor\": \"VISA\",\r\n"
+					+ "  \"concepto\": \"Compra en línea\",\r\n" 
+					+ "  \"cantidad\": 100.00\r\n" 
+					+ "}";
+
+			mockMvc.perform(
+					post("/pago?idUsuario=3&idEvento=1").content(tarjetaJson).contentType(MediaType.APPLICATION_JSON))
+					.andExpect(jsonPath("$.message").value(errorMessage))
+					.andExpect(jsonPath("$.status").value("400"));
+		}
+
+
     /**
      * Prueba para validar que el CVV es inválido.
      * Se espera que la solicitud de pago devuelva un mensaje de error adecuado.

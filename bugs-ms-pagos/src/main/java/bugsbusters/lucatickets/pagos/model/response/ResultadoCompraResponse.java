@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 
 /**
  * ResultadoCompraResponse
- * Microservicio pagos
+ * Clase  de el response del resultado de las compras
  * 18/03/2024
  * V1
  * BugsBusters
@@ -20,23 +20,24 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class ResultadoCompraResponse {
 	
-	//
+	//id de la compra
 	private long idCompra;
 	
-	//
+	//id del usuario
 	private long idUsuario;
 	
-	//
+	//id del evento
 	private long idEvento;
 	
-	//
+	//codigo de la compra
 	private String codigo;
 	
-	//
+	//mensaje de la compra
 	private String mensaje;
 	
-	//
+	//la compra
 	private Compra compra;
     
 	
 }
+

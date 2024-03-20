@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import bugsbusters.lucatickets.eventos.adapter.EventoAdapter;
 import bugsbusters.lucatickets.eventos.controller.error.EventoNotFoundException;
+import bugsbusters.lucatickets.eventos.controller.error.GeneroNotFoundException;
 import bugsbusters.lucatickets.eventos.model.Evento;
 import bugsbusters.lucatickets.eventos.service.EventosService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -65,6 +66,7 @@ public class EventosController {
 		return adaptador.de(eventos);
 	}
 
+
 	/**
 	 * Busca un evento por su ID.
 	 *
@@ -113,6 +115,7 @@ public class EventosController {
 	    return adaptador.de(respuesta);
 	}
 
+
 	/**
 	 * Añade un nuevo evento a la base de datos.
 	 *
@@ -131,5 +134,23 @@ public class EventosController {
 	public EventoResponse anadirEvento(@RequestBody Evento evento) {
 		final Evento eventoDevuelto = servicio.anadirEvento(evento);
 		return adaptador.de(eventoDevuelto);
+	}
+
+	/**
+	 * Mustra una lista de eventos filtrada por género de música
+	 * 
+	 * @param musica El string música por el que se va a filtrar en la base de datos
+	 * @return Una lista de objetos EventoResponse que representan los eventos
+	 *         filtrados por género desde la base de datos.
+	 */
+	@GetMapping("/genero/{musica}")
+	public List<EventoResponse> listadoEventosPorMusica(String musica) {
+		final List<Evento> eventos = servicio.listadoEventosPorMusica(musica);
+
+		if (eventos.size() > 0)
+			return adaptador.de(eventos);
+		else
+			throw new GeneroNotFoundException(musica);
+
 	}
 }
