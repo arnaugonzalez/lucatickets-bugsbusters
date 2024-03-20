@@ -75,13 +75,13 @@ public class PagosServiceImpl implements PagosService {
 		} catch (FeignException.NotFound ex) {
 			throw new EventoNotFoundException(eventoId);
 		}
-	
+		
 		double importe = evento.getPrecio() * cantidad;
 		Pago pago = pagoAdapter.crearPago(
-						"LucaTickets",
-						"Compra entradas",
-						importe,
-						tarjeta);
+				"LucaTickets",
+				"Compra entradas " + usuario.getNombre() + " " + usuario.getApellido(),
+				importe,
+				tarjeta);
 		
 		ResultadoPagoResponse resultadoPago = null;
 		try {

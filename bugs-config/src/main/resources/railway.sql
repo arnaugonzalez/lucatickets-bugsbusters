@@ -29,6 +29,8 @@ CREATE TABLE `sala` (
   PRIMARY KEY (`id_sala`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4;
 
+DELETE FROM sala;
+
 INSERT INTO sala (nombre, ciudad, direccion, tipo_recinto, aforo) VALUES
 ('Pacha Barcelona', 'Barcelona', 'Passeig Marítim', 'Discoteca', 1000),
 ('Joy Eslava', 'Madrid', 'Calle Arenal', 'Discoteca', 800),
@@ -40,6 +42,8 @@ INSERT INTO sala (nombre, ciudad, direccion, tipo_recinto, aforo) VALUES
 ('Privilege Ibiza', 'Ibiza', 'Carrer de les Alzines', 'Discoteca', 10000),
 ('Razzmatazz', 'Barcelona', 'Carrer dels Almogàvers', 'Discoteca', 3000),
 ('Sala But', 'Madrid', 'Calle Barceló', 'Discoteca', 1000);
+
+DELETE FROM eventos;
 
 INSERT INTO eventos (nombre, descripcion_corta, descripcion_extendida, foto, fecha, hora, precio, musica, normas, id_sala) VALUES
 ('Fiesta ElectroShock', '¡No te pierdas la mejor fiesta de música electrónica!', 'Únete a nosotros en una noche llena de ritmos electrónicos y emociones intensas.', 'electroshock.jpg', '2024-04-15', '22:00', 20.00, 'Electrónica', 'Prohibido el acceso a menores de 18 años.', 1),
@@ -127,6 +131,10 @@ CREATE TABLE `usuarios` (
   PRIMARY KEY (`id_usuario`) 
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4;
 
+DELETE FROM usuarios;
+
+ALTER TABLE usuarios AUTO_INCREMENT = 1;
+
 INSERT INTO `usuarios` (`nombre`, `apellido`, `email`, `contrasena`, `fecha_alta`) VALUES
 ('Arnau', 'González', 'arnau@example.com', 'contraseña123', '2023-01-01'),
 ('Mireia', 'Suero', 'mireia@example.com', 'contraseña123', '2023-01-02'),
@@ -162,3 +170,4 @@ CREATE TABLE `compra` (
   PRIMARY KEY (`id_compra`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4;
 
+DELETE FROM compras;
