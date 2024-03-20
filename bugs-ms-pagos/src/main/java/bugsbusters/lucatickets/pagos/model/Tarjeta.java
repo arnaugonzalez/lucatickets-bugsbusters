@@ -1,11 +1,6 @@
 package bugsbusters.lucatickets.pagos.model;
 
-import javax.validation.constraints.NotEmpty;
-
-
-
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotEmpty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

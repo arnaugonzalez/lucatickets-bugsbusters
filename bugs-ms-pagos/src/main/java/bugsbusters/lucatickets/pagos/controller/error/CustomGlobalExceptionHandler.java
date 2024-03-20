@@ -8,7 +8,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.validation.ConstraintViolationException;
+import jakarta.validation.ConstraintViolationException;
 
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -19,10 +19,10 @@ import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
+import feign.FeignException;
 import jakarta.servlet.http.HttpServletResponse;
 
 /*
@@ -46,12 +46,27 @@ public class CustomGlobalExceptionHandler extends ResponseEntityExceptionHandler
 
 	// @ResponseStatus(HttpStatus.NOT_FOUND)
 	@ExceptionHandler(UsuarioNotFoundException.class)
-	public void springHandleNotFound(HttpServletResponse response) throws IOException {
-		logger.info("------ EventoNotFoundException() ");
+	public void usuarioNotFound(HttpServletResponse response) throws IOException {
+		logger.info("------ UsuarioNotFoundException() ");
 		// Saltará a la clase CustomErrorAttibuttes para crear un error personalizado
 		response.sendError(HttpStatus.NOT_FOUND.value());
 	}
 
+	@ExceptionHandler(EventoNotFoundException.class)
+	public void eventoNotFound(HttpServletResponse response) throws IOException {
+		logger.info("------ EventoNotFoundException() ");
+		// Saltará a la clase CustomErrorAttibuttes para crear un error personalizado
+		response.sendError(HttpStatus.NOT_FOUND.value());
+	}
+	
+	@ExceptionHandler(FeignException.class)
+	public void pagoException(FeignException ex, HttpServletResponse response) throws IOException {
+		logger.info("------ FeignException() ");
+		// Saltará a la clase CustomErrorAttibuttes para crear un error personalizado
+		response.sendError(ex.status(), extractErrorMessage(ex.contentUTF8()));
+
+	}
+	
 	// @Validate For Validating Path Variables and Request Parameters
 	@ExceptionHandler(ConstraintViolationException.class)
 	public void constraintViolationException(HttpServletResponse response) throws IOException {
@@ -75,6 +90,7 @@ public class CustomGlobalExceptionHandler extends ResponseEntityExceptionHandler
 		
 		// Get all errors indicando el campo en el que falla
 		List<String> messages = new ArrayList<String>();
+		
 		for (FieldError error : ex.getBindingResult().getFieldErrors()) {
 			messages.add(error.getField() + ": " + error.getDefaultMessage());
 		}
@@ -113,5 +129,23 @@ public class CustomGlobalExceptionHandler extends ResponseEntityExceptionHandler
 		return new ResponseEntity<Object>(body, new HttpHeaders(), HttpStatus.METHOD_NOT_ALLOWED);
 
 	}
+	
+	
+	//  --> chatgpt help: 
+	// make a method that get this string as a parmeter
+	// and return the next thing after "error\":\" and until it founds another \
+	
+	public String extractErrorMessage(String input) {
+        String errorKeyword = "\"error\":\"";
+        int startIndex = input.indexOf(errorKeyword);
+        if (startIndex != -1) {
+            startIndex += errorKeyword.length();
+            int endIndex = input.indexOf("\"", startIndex);
+            if (endIndex != -1) {
+                return input.substring(startIndex, endIndex);
+            }
+        }
+        return null; // Return null if the pattern is not found
+    }
 
 }

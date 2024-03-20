@@ -31,6 +31,7 @@ public class ResultadoCompraAdapter {
 		resultado.setIdCompra(compra.getId_compra());
 		resultado.setIdUsuario(compra.getId_usuario());
 		resultado.setIdEvento(compra.getId_evento());
+		
 		//leer 8 caracteres message
 		resultado.setCodigo(resultadoPagoResponse.getError()
 				.substring(0, Math.min(resultadoPagoResponse.getError().length(), 8)));
