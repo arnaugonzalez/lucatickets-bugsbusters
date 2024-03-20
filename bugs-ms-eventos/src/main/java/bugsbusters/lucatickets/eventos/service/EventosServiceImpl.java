@@ -38,6 +38,10 @@ public class EventosServiceImpl implements EventosService {
 		return repo.findById(id);
 	}
 	
+    public List<Evento> listadoEventosPorNombre(String nombre) {
+        return repo.findByNombre(nombre);
+    }
+	
 	/**
 	 * Método para añadir un evento en la base de datos
 	 */
@@ -46,5 +50,17 @@ public class EventosServiceImpl implements EventosService {
 		return repo.save(evento);
 
 	}
-
+	
+	/**
+	 * Método para filtrar la lista de eventos por género de música
+	 */
+	@Override
+	public List<Evento> listadoEventosPorMusica(String musica) {
+		return repo.findByMusica(musica);
+	}
+	
+	@Override
+	public List<Evento> listadoEventosPorCiudad(String ciudad) {
+		return repo.listadoEventosPorCiudad(ciudad);
+	}
 }

@@ -11,8 +11,6 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 
 
-
-//@WebMvcTest(EventosController.class)
 @SpringBootTest
 @AutoConfigureMockMvc
 public class MvcEventosTests {

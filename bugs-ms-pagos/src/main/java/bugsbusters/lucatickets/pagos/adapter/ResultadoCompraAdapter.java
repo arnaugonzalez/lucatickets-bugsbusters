@@ -1,7 +1,5 @@
 package bugsbusters.lucatickets.pagos.adapter;
 
-import java.util.ArrayList;
-import java.util.List;
 
 import org.springframework.stereotype.Component;
 
@@ -11,7 +9,7 @@ import bugsbusters.lucatickets.pagos.model.response.ResultadoPagoResponse;
 
 /**
  * ResultadoCompraAdapter
- * Microservicio pagos
+ * Clase del adaptador de las compras
  * 18/03/2024
  * V1
  * BugsBusters
@@ -20,10 +18,10 @@ import bugsbusters.lucatickets.pagos.model.response.ResultadoPagoResponse;
 public class ResultadoCompraAdapter {
 	
 	/**
-	 * Este metodo 
-	 * @param resultadoPagoResponse
-	 * @param compra
-	 * @return resultado ResultadoCompraResponse
+	 * Este metodo crea un objeto ResultadoCompraResponse dado un resultadoPagoResponse y una compra
+	 * @param resultadoPagoResponse El resultado de un pago
+	 * @param compra Una compra
+	 * @return resultado ResultadoCompraResponse 
 	 */
 	
 	public ResultadoCompraResponse crearResultadoCompra(ResultadoPagoResponse resultadoPagoResponse, Compra compra) {

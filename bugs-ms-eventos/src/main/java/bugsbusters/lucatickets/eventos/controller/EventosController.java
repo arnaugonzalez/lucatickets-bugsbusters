@@ -13,7 +13,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import bugsbusters.lucatickets.eventos.adapter.EventoAdapter;
+import bugsbusters.lucatickets.eventos.controller.error.CiudadNotFoundException;
 import bugsbusters.lucatickets.eventos.controller.error.EventoNotFoundException;
+import bugsbusters.lucatickets.eventos.controller.error.GeneroNotFoundException;
 import bugsbusters.lucatickets.eventos.model.Evento;
 import bugsbusters.lucatickets.eventos.service.EventosService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -65,21 +67,56 @@ public class EventosController {
 		return adaptador.de(eventos);
 	}
 
-	@Operation(summary = "BuscaEvento por ID", description = "Dado un ID, devuelve un objeto Evento", tags= {"evento"})
+
+	/**
+	 * Busca un evento por su ID.
+	 *
+	 * @param id El ID del evento a buscar.
+	 * @return Un objeto EventoResponse que representa el evento encontrado, si
+	 *         existe.
+	 * @throws EventoNotFoundException Si no se encuentra ningún evento con el ID
+	 *                                 proporcionado.
+	 */
+	@Operation(summary = "BuscaEvento por ID", description = "Dado un ID, devuelve un objeto Evento", tags = {
+			"evento" })
 	@ApiResponses(value = {
 			@ApiResponse(responseCode = "200", description = "Evento localizado", content = {
 					@Content(mediaType = "application/json", schema = @Schema(implementation = Evento.class)) }),
 			@ApiResponse(responseCode = "404", description = "Evento no encontrado (NO implementado)", content = @Content) })
 	@GetMapping("/{id}")
 	public EventoResponse dameEventoPorId(
-			@Parameter(description = "ID del evento a localizar", required=true) 
-			@PathVariable Long id) {
+			@Parameter(description = "ID del evento a localizar", required = true) @PathVariable Long id) {
 		Optional<Evento> respuesta = servicio.dameEventoPorId(id);
-		if(respuesta.isPresent())
+		if (respuesta.isPresent())
 			return adaptador.de(respuesta.get());
-		else throw new EventoNotFoundException(id);
+		else
+			throw new EventoNotFoundException(id);
 	}
-	
+
+	/**
+	 * Obtiene un listado de eventos desde la base de datos filtrado por nombre.
+	 *
+	 * @param nombre El nombre del evento a buscar.
+	 * @return Una lista de objetos EventoResponse que representan los eventos
+	 *         cargados desde la base de datos y filtrados por nombre.
+	 */
+	@Operation(summary = "Listar eventos por nombre", description = "Carga la lista de eventos de la base de datos filtrada por nombre", tags = {
+			"evento" })
+	@ApiResponses(value = { @ApiResponse(responseCode = "200", description = "Lista cargada", content = {
+			@Content(mediaType = "application/json", schema = @Schema(implementation = EventoResponse.class)) }),
+			@ApiResponse(responseCode = "400", description = "Petición inválida", content = @Content),
+			@ApiResponse(responseCode = "404", description = "No se encontraron eventos con ese nombre", content = @Content) })
+	@GetMapping("/nombre/{nombre}")
+	public List<EventoResponse> listadoEventosPorNombre(
+			@Parameter(description = "Nombre del evento a buscar", required = true) @PathVariable String nombre) {
+		final List<Evento> respuesta = servicio.listadoEventosPorNombre(nombre);
+		if (respuesta.isEmpty()) {
+	        throw new EventoNotFoundException(nombre);
+	    }
+	    return adaptador.de(respuesta);
+	}
+
+
 	/**
 	 * Añade un nuevo evento a la base de datos.
 	 *
@@ -99,5 +136,33 @@ public class EventosController {
 		final Evento eventoDevuelto = servicio.anadirEvento(evento);
 		return adaptador.de(eventoDevuelto);
 	}
+
+	/**
+	 * Mustra una lista de eventos filtrada por género de música
+	 * 
+	 * @param musica El string música por el que se va a filtrar en la base de datos
+	 * @return Una lista de objetos EventoResponse que representan los eventos
+	 *         filtrados por género desde la base de datos.
+	 */
+	@GetMapping("/genero/{musica}")
+	public List<EventoResponse> listadoEventosPorMusica(@PathVariable String musica) {
+		final List<Evento> eventos = servicio.listadoEventosPorMusica(musica);
+
+		if (eventos.size() > 0)
+			return adaptador.de(eventos);
+		else
+			throw new GeneroNotFoundException(musica);
+
+	}
 	
+	@GetMapping("/ciudad/{ciudad}")
+	public List<EventoResponse> listadoEventosPorCiudad(@PathVariable String ciudad) {
+		List<Evento> respuesta = servicio.listadoEventosPorCiudad(ciudad);
+		if(respuesta.size() > 0) {
+			return adaptador.de(respuesta);
+		}
+		else {
+			throw new CiudadNotFoundException(ciudad);
+		}
+	}
 }
