@@ -56,7 +56,7 @@ public class EventosController {
 			"evento" })
 	@ApiResponses(value = {
 			@ApiResponse(responseCode = "200", description = "Lista cargada", content = {
-					@Content(mediaType = "application/json", schema = @Schema(implementation = Evento.class)) }),
+			@Content(mediaType = "application/json", schema = @Schema(implementation = Evento.class)) }),
 			@ApiResponse(responseCode = "400", description = "No valido ", content = @Content),
 			@ApiResponse(responseCode = "404", description = "No se ha encontrado la base de datos", content = @Content) })
 	@GetMapping("/listado") // Devolver la lista de eventos desde el administrador
