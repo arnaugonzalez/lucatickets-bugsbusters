@@ -46,5 +46,13 @@ public class EventosServiceImpl implements EventosService {
 		return repo.save(evento);
 
 	}
+	
+	/**
+	 * Método para filtrar la lista de eventos por género de música
+	 */
+	@Override
+	public List<Evento> listadoEventosPorMusica(String musica) {
+		return repo.findByMusica(musica);
+	}
 
 }
