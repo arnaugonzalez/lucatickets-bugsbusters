@@ -151,6 +151,26 @@ class BugsMsEventosApplicationTests {
 		// servicio es igual al número de eventos en la base de datos.
 		assertTrue(test.size() == listado.size());
 	}
+	
+	/**
+	 * Prueba unitaria para verificar que el filtrado por ciudades es correcto
+	 */
+	@Test
+	public void testListadoEventosCiudad() {
+		logger.info("Test::testListadoEventosCiudad(): Comprobar que cada ciudad de las salas coincida con la búsqueda");
+		
+		String ciudad = "Barcelona";
+		int eventos = 0;
+		
+		List<EventoResponse> listado = control.listadoEventosPorCiudad(ciudad);
+		for(int i = 0; i < listado.size(); i++) {
+			if (listado.get(i).getCiudad().equals(ciudad)) {
+				eventos++;
+			}
+		}
+		
+		assertEquals(listado.size(), eventos);
+	}
 
 	/**
 	 * Prueba para verificar si el evento añadido devuelve la respuesta esperada.
