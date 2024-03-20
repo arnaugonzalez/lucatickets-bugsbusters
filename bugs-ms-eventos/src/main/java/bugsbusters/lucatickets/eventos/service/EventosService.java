@@ -44,5 +44,11 @@ public interface EventosService {
 	 * @return La lista de eventos filtrados por género
 	 */
 	public List<Evento> listadoEventosPorMusica(String musica);
-
+	
+	/**
+	 * Método para filtrar la lista de evento por ciudad de la sala
+	 * @param ciudad String por el que queremos filtrar
+	 * @return La lista de eventos filtrados por ciudad
+	 */
+	public List<Evento> listadoEventosPorCiudad(String ciudad);
 }
