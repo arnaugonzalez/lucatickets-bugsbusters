@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import bugsbusters.lucatickets.eventos.adapter.EventoAdapter;
+import bugsbusters.lucatickets.eventos.controller.error.CiudadNotFoundException;
 import bugsbusters.lucatickets.eventos.controller.error.EventoNotFoundException;
 import bugsbusters.lucatickets.eventos.controller.error.GeneroNotFoundException;
 import bugsbusters.lucatickets.eventos.model.Evento;
@@ -118,5 +119,16 @@ public class EventosController {
 		else
 			throw new GeneroNotFoundException(musica);
 
+	}
+	
+	@GetMapping("/ciudad/{ciudad}")
+	public List<EventoResponse> listadoEventosPorCiudad(@PathVariable String ciudad) {
+		List<Evento> respuesta = servicio.listadoEventosPorCiudad(ciudad);
+		if(respuesta.size() > 0) {
+			return adaptador.de(respuesta);
+		}
+		else {
+			throw new CiudadNotFoundException(ciudad);
+		}
 	}
 }

@@ -54,5 +54,9 @@ public class EventosServiceImpl implements EventosService {
 	public List<Evento> listadoEventosPorMusica(String musica) {
 		return repo.findByMusica(musica);
 	}
-
+	
+	@Override
+	public List<Evento> listadoEventosPorCiudad(String ciudad) {
+		return repo.listadoEventosPorCiudad(ciudad);
+	}
 }
