@@ -1,5 +1,7 @@
 package bugsbusters.lucatickets.eventos.repository;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import bugsbusters.lucatickets.eventos.model.Evento;
@@ -11,4 +13,6 @@ import bugsbusters.lucatickets.eventos.model.Evento;
 
 public interface EventosRepository extends JpaRepository<Evento, Long> {
 
+	List<Evento> findByNombre(String nombre);
+	
 }
