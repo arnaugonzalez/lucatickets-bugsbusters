@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import bugsbusters.lucatickets.eventos.adapter.EventoAdapter;
 import bugsbusters.lucatickets.eventos.controller.error.EventoNotFoundException;
+import bugsbusters.lucatickets.eventos.controller.error.GeneroNotFoundException;
 import bugsbusters.lucatickets.eventos.model.Evento;
 import bugsbusters.lucatickets.eventos.service.EventosService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -65,21 +66,22 @@ public class EventosController {
 		return adaptador.de(eventos);
 	}
 
-	@Operation(summary = "BuscaEvento por ID", description = "Dado un ID, devuelve un objeto Evento", tags= {"evento"})
+	@Operation(summary = "BuscaEvento por ID", description = "Dado un ID, devuelve un objeto Evento", tags = {
+			"evento" })
 	@ApiResponses(value = {
 			@ApiResponse(responseCode = "200", description = "Evento localizado", content = {
 					@Content(mediaType = "application/json", schema = @Schema(implementation = Evento.class)) }),
 			@ApiResponse(responseCode = "404", description = "Evento no encontrado (NO implementado)", content = @Content) })
 	@GetMapping("/{id}")
 	public EventoResponse dameEventoPorId(
-			@Parameter(description = "ID del evento a localizar", required=true) 
-			@PathVariable Long id) {
+			@Parameter(description = "ID del evento a localizar", required = true) @PathVariable Long id) {
 		Optional<Evento> respuesta = servicio.dameEventoPorId(id);
-		if(respuesta.isPresent())
+		if (respuesta.isPresent())
 			return adaptador.de(respuesta.get());
-		else throw new EventoNotFoundException(id);
+		else
+			throw new EventoNotFoundException(id);
 	}
-	
+
 	/**
 	 * Añade un nuevo evento a la base de datos.
 	 *
@@ -98,5 +100,23 @@ public class EventosController {
 	public EventoResponse anadirEvento(@RequestBody Evento evento) {
 		final Evento eventoDevuelto = servicio.anadirEvento(evento);
 		return adaptador.de(eventoDevuelto);
+	}
+
+	/**
+	 * Mustra una lista de eventos filtrada por género de música
+	 * 
+	 * @param musica El string música por el que se va a filtrar en la base de datos
+	 * @return Una lista de objetos EventoResponse que representan los eventos
+	 *         filtrados por género desde la base de datos.
+	 */
+	@GetMapping("/genero/{musica}")
+	public List<EventoResponse> listadoEventosPorMusica(String musica) {
+		final List<Evento> eventos = servicio.listadoEventosPorMusica(musica);
+
+		if (eventos.size() > 0)
+			return adaptador.de(eventos);
+		else
+			throw new GeneroNotFoundException(musica);
+
 	}
 }

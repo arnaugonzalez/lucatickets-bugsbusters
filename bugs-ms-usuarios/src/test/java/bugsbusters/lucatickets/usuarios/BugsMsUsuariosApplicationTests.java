@@ -1,6 +1,13 @@
 package bugsbusters.lucatickets.usuarios;
  
 import static org.assertj.core.api.Assertions.assertThat;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import java.util.List;
+import java.util.Optional;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -120,7 +127,6 @@ class BugsMsUsuariosApplicationTests {
     public void testMostrarListadoUsuariosDespuesAgregar() {
         logger.info("Test::testMostrarListadoUsuariosDespuesAgregar(): Verificar si se muestra correctamente el listado de usuarios después de agregar un nuevo usuario");
 
-        // Obtener la longitud del listado de usuarios antes de agregar un nuevo usuario
         int longitudAntes = control.listadoUsuarios().size();
 
         //agregamos un nuevo usuario
@@ -133,5 +139,6 @@ class BugsMsUsuariosApplicationTests {
         // Verificar que la longitud después de agregar sea mayor que la longitud antes de agregarlo
         assertTrue(longitudDespues > longitudAntes);
 	}
+ 
  
 }

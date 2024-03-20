@@ -213,6 +213,7 @@ class BugsMsEventosApplicationTests {
 	    logger.info("Test::testMostrarListadoEventosDespuesAgregar(): Verificar si se muestra correctamente el listado de eventos después de agregar un nuevo evento");
 
 	    // Obtener la longitud del listado de eventos antes de agregar un nuevo evento
+
 	    int longitudAntes = control.listadoEventos().size();
 
 	    //agregamos un nuevo evento
@@ -236,6 +237,7 @@ class BugsMsEventosApplicationTests {
 
 	    // Obtener la longitud del listado de eventos después de agregar un nuevo evento
 	    int longitudDespues = control.listadoEventos().size();
+
 
 	    // Verificar que la longitud después de agregar sea mayor que la longitud antes de agregar
 	    assertTrue(longitudDespues > longitudAntes);
