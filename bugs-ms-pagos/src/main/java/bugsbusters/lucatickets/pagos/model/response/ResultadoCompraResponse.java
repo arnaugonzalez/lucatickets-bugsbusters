@@ -1,8 +1,5 @@
 package bugsbusters.lucatickets.pagos.model.response;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import bugsbusters.lucatickets.pagos.model.Compra;
 import lombok.AllArgsConstructor;
 import lombok.Data;

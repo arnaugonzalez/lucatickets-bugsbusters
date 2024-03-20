@@ -38,6 +38,10 @@ public class EventosServiceImpl implements EventosService {
 		return repo.findById(id);
 	}
 	
+    public List<Evento> listadoEventosPorNombre(String nombre) {
+        return repo.findByNombre(nombre);
+    }
+	
 	/**
 	 * Método para añadir un evento en la base de datos
 	 */

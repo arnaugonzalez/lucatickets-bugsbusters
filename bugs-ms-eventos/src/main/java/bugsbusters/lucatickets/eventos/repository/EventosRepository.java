@@ -28,4 +28,6 @@ public interface EventosRepository extends JpaRepository<Evento, Long> {
 	@Query("SELECT e FROM Evento e JOIN e.sala s WHERE s.ciudad = :ciudad")
 	public List<Evento> listadoEventosPorCiudad(String ciudad);
 
+	List<Evento> findByNombre(String nombre);
+	
 }

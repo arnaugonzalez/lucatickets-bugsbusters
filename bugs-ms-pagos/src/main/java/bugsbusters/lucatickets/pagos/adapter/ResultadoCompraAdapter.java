@@ -1,7 +1,5 @@
 package bugsbusters.lucatickets.pagos.adapter;
 
-import java.util.ArrayList;
-import java.util.List;
 
 import org.springframework.stereotype.Component;
 
