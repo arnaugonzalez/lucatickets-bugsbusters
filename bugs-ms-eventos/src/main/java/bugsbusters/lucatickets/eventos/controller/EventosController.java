@@ -56,7 +56,7 @@ public class EventosController {
 			"evento" })
 	@ApiResponses(value = {
 			@ApiResponse(responseCode = "200", description = "Lista cargada", content = {
-			@Content(mediaType = "application/json", schema = @Schema(implementation = Evento.class)) }),
+					@Content(mediaType = "application/json", schema = @Schema(implementation = Evento.class)) }),
 			@ApiResponse(responseCode = "400", description = "No valido ", content = @Content),
 			@ApiResponse(responseCode = "404", description = "No se ha encontrado la base de datos", content = @Content) })
 	@GetMapping("/listado") // Devolver la lista de eventos desde el administrador
@@ -65,21 +65,54 @@ public class EventosController {
 		return adaptador.de(eventos);
 	}
 
-	@Operation(summary = "BuscaEvento por ID", description = "Dado un ID, devuelve un objeto Evento", tags= {"evento"})
+	/**
+	 * Busca un evento por su ID.
+	 *
+	 * @param id El ID del evento a buscar.
+	 * @return Un objeto EventoResponse que representa el evento encontrado, si
+	 *         existe.
+	 * @throws EventoNotFoundException Si no se encuentra ningún evento con el ID
+	 *                                 proporcionado.
+	 */
+	@Operation(summary = "BuscaEvento por ID", description = "Dado un ID, devuelve un objeto Evento", tags = {
+			"evento" })
 	@ApiResponses(value = {
 			@ApiResponse(responseCode = "200", description = "Evento localizado", content = {
 					@Content(mediaType = "application/json", schema = @Schema(implementation = Evento.class)) }),
 			@ApiResponse(responseCode = "404", description = "Evento no encontrado (NO implementado)", content = @Content) })
 	@GetMapping("/{id}")
 	public EventoResponse dameEventoPorId(
-			@Parameter(description = "ID del evento a localizar", required=true) 
-			@PathVariable Long id) {
+			@Parameter(description = "ID del evento a localizar", required = true) @PathVariable Long id) {
 		Optional<Evento> respuesta = servicio.dameEventoPorId(id);
-		if(respuesta.isPresent())
+		if (respuesta.isPresent())
 			return adaptador.de(respuesta.get());
-		else throw new EventoNotFoundException(id);
+		else
+			throw new EventoNotFoundException(id);
 	}
-	
+
+	/**
+	 * Obtiene un listado de eventos desde la base de datos filtrado por nombre.
+	 *
+	 * @param nombre El nombre del evento a buscar.
+	 * @return Una lista de objetos EventoResponse que representan los eventos
+	 *         cargados desde la base de datos y filtrados por nombre.
+	 */
+	@Operation(summary = "Listar eventos por nombre", description = "Carga la lista de eventos de la base de datos filtrada por nombre", tags = {
+			"evento" })
+	@ApiResponses(value = { @ApiResponse(responseCode = "200", description = "Lista cargada", content = {
+			@Content(mediaType = "application/json", schema = @Schema(implementation = EventoResponse.class)) }),
+			@ApiResponse(responseCode = "400", description = "Petición inválida", content = @Content),
+			@ApiResponse(responseCode = "404", description = "No se encontraron eventos con ese nombre", content = @Content) })
+	@GetMapping("/{nombre}")
+	public List<EventoResponse> listadoEventosPorNombre(
+			@Parameter(description = "Nombre del evento a buscar", required = true) @PathVariable String nombre) {
+		final List<Evento> respuesta = servicio.listadoEventosPorNombre(nombre);
+		if (respuesta.isEmpty()) {
+	        throw new EventoNotFoundException(nombre);
+	    }
+	    return adaptador.de(respuesta);
+	}
+
 	/**
 	 * Añade un nuevo evento a la base de datos.
 	 *

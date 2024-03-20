@@ -10,4 +10,7 @@ public class EventoNotFoundException extends RuntimeException {
 	public EventoNotFoundException(Long id) {
 		super("No existe el evento con ID: "+ id);
 	}	
+	public EventoNotFoundException(String nombre) {
+		super("No existe el evento con ID: "+ nombre);
+	}	
 }
