@@ -15,6 +15,7 @@ import bugsbusters.lucatickets.pagos.feignclients.EventoFeignClient;
 import bugsbusters.lucatickets.pagos.feignclients.PasarelaFeignClient;
 import bugsbusters.lucatickets.pagos.feignclients.UsuarioFeignClient;
 import bugsbusters.lucatickets.pagos.model.Compra;
+import bugsbusters.lucatickets.pagos.model.Credenciales;
 import bugsbusters.lucatickets.pagos.model.Pago;
 import bugsbusters.lucatickets.pagos.model.Tarjeta;
 import bugsbusters.lucatickets.pagos.model.response.EventoResponse;
@@ -79,9 +80,16 @@ public class PagosServiceImpl implements PagosService {
 				importe,
 				tarjeta);
 		
+		String token = null;
+		try {
+			token = pasarelaClient.validarUser(new Credenciales("Grupo03", "AntoniosRules"));
+		} catch (FeignException ex) {
+			throw ex;
+		}
+		
 		ResultadoPagoResponse resultadoPago = null;
 		try {
-			resultadoPago = pasarelaClient.datosValidacion(pago);
+			resultadoPago = pasarelaClient.datosValidacionToken(token, pago);
 		} catch (FeignException ex) {
 			throw ex;
 		}
