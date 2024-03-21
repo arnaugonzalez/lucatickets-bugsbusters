@@ -96,7 +96,7 @@
 		</plugins>
 		<resources>
         <resource>
-            <directory>src/main/resources/config</directory> <!-- Add this line -->
+            <directory>src/main/resources/config</directory>
         </resource>
     </resources>
 	</build>
