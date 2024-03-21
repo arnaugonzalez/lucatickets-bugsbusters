@@ -39,5 +39,12 @@ public interface UsuariosService {
 	 * @return Usuario añadido
 	 */
 	Usuario anadirUsuario(Usuario usuario);
+	
+	/**
+	 * Método para ver si ya existe un usuario con un email en concreto
+	 * @param email Email para buscar
+	 * @return Booleano que devuelve true si existe o false en caso contrario
+	 */
+	boolean existsByEmail(String email);
 
 }

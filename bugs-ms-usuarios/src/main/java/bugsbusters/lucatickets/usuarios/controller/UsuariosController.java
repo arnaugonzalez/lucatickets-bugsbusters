@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import bugsbusters.lucatickets.usuarios.adapter.UsuarioAdapter;
+import bugsbusters.lucatickets.usuarios.controller.error.UsuarioExistsException;
 import bugsbusters.lucatickets.usuarios.controller.error.UsuarioNotFoundException;
 import bugsbusters.lucatickets.usuarios.model.Usuario;
 import bugsbusters.lucatickets.usuarios.model.response.UsuarioResponse;
@@ -78,7 +79,13 @@ public class UsuariosController {
 			@ApiResponse(responseCode = "404", description = "No se ha encontrado la base de datos", content = @Content)})
 	@PostMapping("/nuevo") //Devolver un usuario buscado por id
 	public UsuarioResponse anadirUsuario(@Valid @RequestBody Usuario usuario){
-		final Usuario usuarioDevuelto = servicio.anadirUsuario(usuario);
-		return adaptador.de(usuarioDevuelto);
+		if (servicio.existsByEmail(usuario.getEmail())) {
+	        throw new UsuarioExistsException(usuario.getEmail());
+	    }
+		else {
+			final Usuario usuarioDevuelto = servicio.anadirUsuario(usuario);
+			return adaptador.de(usuarioDevuelto);
+		}
+		
 	}
 }

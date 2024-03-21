@@ -8,15 +8,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import bugsbusters.lucatickets.pagos.controller.error.TarjetaNoValidaException;
 import bugsbusters.lucatickets.pagos.model.Tarjeta;
 import bugsbusters.lucatickets.pagos.model.response.ResultadoCompraResponse;
 import bugsbusters.lucatickets.pagos.service.PagosService;
+import io.micrometer.common.util.StringUtils;
 import io.swagger.v3.oas.annotations.Operation;
 //import io.swagger.v3.oas.annotations.media.Content;
 //import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 //import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 
 /**
  * Controlador para la gestión de pagos.
@@ -54,8 +57,13 @@ public class PagosController {
 	@ApiResponse(responseCode = "500.0001", description = "El sistema se encuentra inestable")
 	@PostMapping("/{idUsuario}/pagar")
 	public ResultadoCompraResponse pagarEvento(@PathVariable Long idUsuario, @RequestParam Long idEvento,
-			@RequestParam(defaultValue = "1") Integer cantidad, @RequestBody Tarjeta tarjeta) {
-
-		return service.pagarEvento(idUsuario, idEvento, cantidad, tarjeta);
+			@RequestParam(defaultValue = "1") Integer cantidad, @RequestBody @Valid Tarjeta tarjeta) {
+		if (!tarjeta.getNumeroTarjeta().matches("\\d{4}-\\d{4}-\\d{4}-\\d{4}")) {
+	        throw new TarjetaNoValidaException(tarjeta.getNumeroTarjeta());
+	    }
+		else {
+			return service.pagarEvento(idUsuario, idEvento, cantidad, tarjeta);
+		}
+		
 	}
 }

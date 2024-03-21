@@ -46,5 +46,13 @@ public class UsuariosServiceImpl implements UsuariosService {
 	public Usuario anadirUsuario(Usuario usuario) {
 		return repo.save(usuario);
 	}
+	
+	/**
+	 * Método para ver si ya existe un usuario con un email en concreto
+	 */
+	@Override
+	public boolean existsByEmail(String email) {
+		return repo.existsByEmail(email);
+	}
 
 }
