@@ -93,7 +93,10 @@ class BugsMsEventosApplicationTests {
 	@Test
 	void contextLoads() {
 	}
-
+	
+	/**
+	 * Verifica si el controlador de eventos no es nulo.
+	 */
 	@Test
 	void existeEventoController() {
 		assertThat(control).isNotNull();
@@ -192,7 +195,10 @@ class BugsMsEventosApplicationTests {
 		assertTrue(resultado);
 //		assertTrue(test.equals(eventoAdaptado));
 	}
-
+	
+	/**
+	 * Prueba la funcionalidad de añadir un evento y verificar si la longitud del listado de eventos aumenta 
+	 */
 	@Test
 	public void eventoAnadidoLongitudListado() {
 		logger.info(
@@ -222,7 +228,11 @@ class BugsMsEventosApplicationTests {
 
 		assertEquals(longitud_listado_antes + 1, longitud_listado_despues);
 	}
-
+	
+	/**
+	 * Prueba la funcionalidad de obtener un evento por su ID y Comprueba que el evento devuelto por dameEventoPorID del controlador 
+	 * y el evento obtenido del repositorio por su ID sean iguales.
+	 */
 	@Test
 	public void testEventoPorId() {
 		logger.info(
@@ -236,7 +246,10 @@ class BugsMsEventosApplicationTests {
 
 		assertEquals(e1, e2);
 	}
-
+	
+	/**
+	 * Comprueba que la longitud del listado de eventos después de agregar un nuevo evento sea mayor que la longitud antes de agregarlo
+	 */
 	@Test
 	public void testMostrarListadoEventosDespuesAgregar() {
 		logger.info(
