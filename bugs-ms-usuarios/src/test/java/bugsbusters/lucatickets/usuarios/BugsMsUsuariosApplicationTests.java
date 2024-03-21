@@ -97,7 +97,7 @@ class BugsMsUsuariosApplicationTests {
 				"Test::testAnadirUsuario(): Que la respuesta dando de alta un usuario nuevo sea igual ha dicho usuario creado");
 
 		// usuario de prueba
-		Usuario usuario = new Usuario(1L, "Mireia", "Suero", "mir@suero.com", "patata", "01-01-2000");
+		Usuario usuario = new Usuario(1L, "Diego", "Valles", "diegovalles@gmail.com", "patata", "2000-01-01");
 
 		// añadimos el usuario
 		UsuarioResponse usuarioTest = control.anadirUsuario(usuario);
@@ -134,7 +134,7 @@ class BugsMsUsuariosApplicationTests {
 		int longitudAntes = control.listadoUsuarios().size();
 
 		// agregamos un nuevo usuario
-		Usuario usuarioTest = new Usuario(5555L, "Juan", "Garcia", "juangarcia@mail.com", "clave123", "2000-05-12");
+		Usuario usuarioTest = new Usuario(5555L, "Carmen", "Hernandez", "carmenhernandez@mail.com", "clave123", "2002-11-05");
 		control.anadirUsuario(usuarioTest);
 
 		// Obtener la longitud del listado de usuarios después de agregar un nuevo
