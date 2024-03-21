@@ -2,6 +2,7 @@ package bugsbusters.lucatickets.usuarios.model;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Pattern;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -43,6 +44,7 @@ public class Usuario {
 	private String contrasena;
 	
 	@NotEmpty(message = "La fecha debe estar en formato correcto")
+	@Pattern(regexp = "\\d{2}/\\d{2}/\\d{4}", message = "La fecha debe estar en formato dd/MM/yyyy")
 	private String fecha_alta;
 }
 
