@@ -132,7 +132,6 @@ class BugsMsUsuariosApplicationTests {
 		Usuario usuario = new Usuario((long)500 + random.nextInt(1001), 
 				"Arnau", "Adrián",
 				"mireiasuero@andrés.com" + random.nextInt(1001), "patata", "2000-01-01");
-
 		// añadimos el usuario
 		UsuarioResponse usuarioTest = control.anadirUsuario(usuario);
 
@@ -172,6 +171,7 @@ class BugsMsUsuariosApplicationTests {
 				"Arnau", "Adrián",
 				"mireiasuerofranco@andrés.com" + random.nextInt(1001),
 				"patata", "2000-01-01");
+
 		control.anadirUsuario(usuarioTest);
 
 		// Obtener la longitud del listado de usuarios después de agregar un nuevo
