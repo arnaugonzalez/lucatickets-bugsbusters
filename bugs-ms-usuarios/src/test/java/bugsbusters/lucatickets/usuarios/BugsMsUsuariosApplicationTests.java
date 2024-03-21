@@ -13,6 +13,7 @@ import org.apache.logging.log4j.Logger;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.ResponseEntity;
 
 import bugsbusters.lucatickets.usuarios.adapter.UsuarioAdapter;
 import bugsbusters.lucatickets.usuarios.controller.UsuariosController;
@@ -99,7 +100,7 @@ class BugsMsUsuariosApplicationTests {
 		Usuario usuario = new Usuario(1L, "Mireia", "Suero", "mir@suero.com", "patata", "01-01-2000");
 
 		// añadimos el usuario
-		UsuarioResponse usuarioTest = control.anadirUsuario(usuario);
+		ResponseEntity<?> usuarioTest = control.anadirUsuario(usuario);
 
 		UsuarioResponse usuarioAdaptado = adapter.de(usuario);
 
