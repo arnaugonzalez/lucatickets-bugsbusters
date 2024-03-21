@@ -124,7 +124,6 @@ public class EventosController {
 	 * @return Un objeto EventoResponse que representa el evento añadido a la base
 	 *         de datos.
 	 */
-
 	@Operation(summary = "Añadir evento", description = "Añade un nuevo evento a la base de datos", tags = { "evento" })
 	@ApiResponses(value = {
 			@ApiResponse(responseCode = "200", description = "Evento añadido", content = {
