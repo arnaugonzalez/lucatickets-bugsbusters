@@ -1,9 +1,7 @@
 package bugsbusters.lucatickets.usuarios.model;
 
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.Pattern;
-
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotEmpty;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -37,8 +35,8 @@ public class Usuario {
 	private String apellido;
 	
 	@NotEmpty(message = "El email no puede estar vacío")
-	@Email(message="Please provide a valid email address")
-	@Pattern(regexp=".+@.+\\..+", message="Please provide a valid email address")
+	@Column(unique = true)
+	@Email(message="Formato incorrecto para el email")
 	private String email;
 	
 	@NotEmpty(message = "Contrasena debe ser correcta")
