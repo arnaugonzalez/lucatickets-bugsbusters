@@ -8,5 +8,6 @@ import lombok.Data;
 public final class Credenciales {
 
 	private String user;
-	private String password;
+	private String pwd;
+	private String token;
 }

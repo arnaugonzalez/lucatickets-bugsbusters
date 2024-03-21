@@ -30,6 +30,11 @@ CREATE TABLE `sala` (
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4;
 
 DELETE FROM sala;
+DELETE FROM eventos;
+
+ALTER TABLE sala AUTO_INCREMENT = 1;
+ALTER TABLE eventos AUTO_INCREMENT = 1;
+
 
 INSERT INTO sala (nombre, ciudad, direccion, tipo_recinto, aforo) VALUES
 ('Pacha Barcelona', 'Barcelona', 'Passeig Marítim', 'Discoteca', 1000),
@@ -43,7 +48,6 @@ INSERT INTO sala (nombre, ciudad, direccion, tipo_recinto, aforo) VALUES
 ('Razzmatazz', 'Barcelona', 'Carrer dels Almogàvers', 'Discoteca', 3000),
 ('Sala But', 'Madrid', 'Calle Barceló', 'Discoteca', 1000);
 
-DELETE FROM eventos;
 
 INSERT INTO eventos (nombre, descripcion_corta, descripcion_extendida, foto, fecha, hora, precio, musica, normas, id_sala) VALUES
 ('Fiesta ElectroShock', '¡No te pierdas la mejor fiesta de música electrónica!', 'Únete a nosotros en una noche llena de ritmos electrónicos y emociones intensas.', 'electroshock.jpg', '2024-04-15', '22:00', 20.00, 'Electrónica', 'Prohibido el acceso a menores de 18 años.', 1),

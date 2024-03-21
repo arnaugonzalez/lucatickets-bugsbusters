@@ -4,10 +4,13 @@ import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import bugsbusters.lucatickets.pagos.model.Credenciales;
 import bugsbusters.lucatickets.pagos.model.Pago;
 import bugsbusters.lucatickets.pagos.model.response.ResultadoPagoResponse;
+import feign.Headers;
+import feign.Param;
 
 /**
  * Feign Client para controlar la validación de datos y devolverlos.
@@ -21,11 +24,13 @@ public interface PasarelaFeignClient {
 	 * Endpoint que actúa como clave de acceso para obtener el token que validará
 	 * la llamada datosValidacionToken(...)
 	 * 
-	 * @param credenciales: user y password para el body a enviar
+	 * @param user: usuario para la validación
+	 * @param password: contraseña para la validación
 	 * @return: String token de acceso 
 	 */
-	@PostMapping("/validaruser/")
-	public String validarUser(@RequestBody Credenciales credenciales);
+	@PostMapping("/validaruser")
+//	@Headers("Content-Type: application/x-www-form-urlencoded")
+	public Credenciales validarUser(@RequestParam("user") String user, @RequestParam("password") String password);
 	
 	
 	/**
@@ -34,7 +39,7 @@ public interface PasarelaFeignClient {
 	 * @param pago: Pago a realizar
 	 * @return: devuelve la información del pago realizado
 	 */
-	@PostMapping("/validacion/")
+	@PostMapping("/validacion")
 	public ResultadoPagoResponse datosValidacionToken(
 			@RequestHeader("Authorization") String token,
 			@RequestBody Pago pago);

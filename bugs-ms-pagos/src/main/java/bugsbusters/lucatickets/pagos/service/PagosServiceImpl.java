@@ -25,11 +25,22 @@ import bugsbusters.lucatickets.pagos.model.response.UsuarioResponse;
 import bugsbusters.lucatickets.pagos.repository.PagosRepository;
 import feign.FeignException;
 
+/**
+ * @author arnau gonzález
+ * 
+ * @EventosServiceImpl
+ * 
+ * Es la implementación de la interfaz {@code PagosService}
+ * 
+ * 20/03/2024
+ * V1
+ * bugs-ms-pagos
+ */
+
 @Service
 public class PagosServiceImpl implements PagosService {
 
 	private static final Logger logger = LoggerFactory.getLogger(PagosController.class);
-
 	
 	@Autowired
 	EventoFeignClient eventoClient;
@@ -52,8 +63,21 @@ public class PagosServiceImpl implements PagosService {
 	@Autowired
 	PagosRepository repo;
 	
-	/*
-	 * Método para 
+	/**
+	 * Método para recuperar un @code Evento y un @code Usuario a través 
+	 * del @code EventoFeignClient y el @code UsuarioFeignClient para validar un 
+	 * token con @code PasarelaFeignClient y guardarlo en @code ComprasRepository
+	 * 
+	 * @param usuarioId: id del usuario que paga
+	 * @param eventoId: id del evento a pagar
+	 * @param cantidad: numero de entradas a comprar
+	 * @param tarjeta: @code Tarjeta que validará los datos de la compra
+	 * 
+	 * @return: ResultadoCompraResponse que contiene el resultado de la compra satisfactoria
+	 * 
+	 * @exception UsuarioNotFoundException: no se encuentra el usuario con el @param usuarioId
+	 * @exception EventoNotFoundException: no se encuentra el evento con el @param eventoId
+	 * @exception FeignException: para controlar que la validación no sea correcta
 	 */
 	
 	@Override
@@ -80,16 +104,18 @@ public class PagosServiceImpl implements PagosService {
 				importe,
 				tarjeta);
 		
-		String token = null;
+		Credenciales creds = null;
 		try {
-			token = pasarelaClient.validarUser(new Credenciales("Grupo03", "AntoniosRules"));
+			creds = pasarelaClient.validarUser(
+							"Grupo03", //user
+							"AntoniosRules"); //password
 		} catch (FeignException ex) {
 			throw ex;
 		}
 		
 		ResultadoPagoResponse resultadoPago = null;
 		try {
-			resultadoPago = pasarelaClient.datosValidacionToken(token, pago);
+			resultadoPago = pasarelaClient.datosValidacionToken(creds.getToken(), pago);
 		} catch (FeignException ex) {
 			throw ex;
 		}

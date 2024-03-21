@@ -90,14 +90,14 @@ class BugsMsPagosApplicationTests {
 		
 		Tarjeta tarjetaTest = new Tarjeta(
 				"Arnau Gonzalez",
-				"424-5678-9012-3456", //NUMERO TARJETA NO VÁLIDO
-				12, 2025, 454);
+				"8424-5678-9012-3456", //NUMERO TARJETA NO VÁLIDO
+				12, 2025, 454);		  //DEBE EMPEZAR POR 4 o 5
 		
 		ObjectMapper om = new ObjectMapper();
 		String tarjetaJSONtest = om.writeValueAsString(tarjetaTest);
 		
 		mockMvc.perform(
-					post("/pago/1/pagar?idEvento=1&cantidad=2")
+					post("/pagos/1/pagar?idEvento=1&cantidad=2")
 				.content(tarjetaJSONtest).contentType(MediaType.APPLICATION_JSON)
 					.accept(MediaType.APPLICATION_JSON))
 				.andExpect(status().isBadRequest());			
@@ -117,14 +117,14 @@ class BugsMsPagosApplicationTests {
 
 		Tarjeta tarjetaTest = new Tarjeta(
 					"Arnau Gonzalez",
-					"424-5678-9012-3456", //NUMERO TARJETA NO VÁLIDO
-					12, 2025, 454);
+					"8424-5678-9012-3456", //NUMERO TARJETA NO VÁLIDO
+					12, 2025, 454);		  //DEBE EMPEZAR POR 4 o 5
 			
 		ObjectMapper om = new ObjectMapper();
 		String tarjetaJSONtest = om.writeValueAsString(tarjetaTest);
 			
 		MvcResult test = mockMvc
-				.perform(post("/pago/1/pagar?idEvento=1&cantidad=2")
+				.perform(post("/pagos/1/pagar?idEvento=1&cantidad=2")
 					.content(tarjetaJSONtest).contentType(MediaType.APPLICATION_JSON)
 					.accept(MediaType.APPLICATION_JSON))
 				.andReturn();				
@@ -155,7 +155,7 @@ class BugsMsPagosApplicationTests {
 		String tarjetaJSONtest = om.writeValueAsString(tarjetaTest);
 		
 		MvcResult test = mockMvc
-				.perform(post("/pago/1/pagar?idEvento=1&cantidad=2")
+				.perform(post("/pagos/1/pagar?idEvento=1&cantidad=2")
 						.content(tarjetaJSONtest).contentType(MediaType.APPLICATION_JSON)
 						.accept(MediaType.APPLICATION_JSON))
 				.andReturn();		

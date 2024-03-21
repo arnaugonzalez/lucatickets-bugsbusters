@@ -26,6 +26,7 @@ import java.time.LocalTime;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
+import java.util.Random;
 
 /**
  * Clase que contiene los casos de prueba para la aplicación de gestión de
@@ -39,7 +40,8 @@ class BugsMsEventosApplicationTests {
 
 	private static byte cont = 1;
 	private static Logger logger;
-
+	private static Random random;
+	
 	@Autowired
 	private EventosRepository dao;
 
@@ -63,6 +65,7 @@ class BugsMsEventosApplicationTests {
 	@BeforeAll
 	public static void onceExecutedBeforeAll() {
 		logger.info(">>> Iniciando pruebas unitarias...");
+		random = new Random();
 	}
 
 	/**
@@ -189,10 +192,13 @@ class BugsMsEventosApplicationTests {
 		logger.info(
 				"Test::eventoAnadidoResponse(): Que tras añadir un evento nuevo, el HTTP Response Body contenga dicho Evento");
 
-		Sala salaA = new Sala(1L, "Sala A", "Villarobledo", "Calle de la birra", "Al aire libre", 600);
+		Random random = new Random();
+		
+		Sala salaA = new Sala(1L,
+				"Sala A", "Villarobledo", "Calle de la birra", "Al aire libre", 600);
 
 		Evento eventoTest = new Evento();
-		eventoTest.setId(9994449L);
+		eventoTest.setId((long)500 + random.nextInt(1001));
 		eventoTest.setNombre("Claptest2");
 		eventoTest.setDescripcion_corta("Disco Mataró");
 		eventoTest.setDescripcion_extendida("Discoteca multitudinaria, hacen varios eventos");
@@ -213,7 +219,6 @@ class BugsMsEventosApplicationTests {
 				&& (test.getMusica().equals(eventoAdaptado.getMusica()));
 
 		assertTrue(resultado);
-//		assertTrue(test.equals(eventoAdaptado));
 	}
 	
 	/**
@@ -226,10 +231,11 @@ class BugsMsEventosApplicationTests {
 
 		int longitud_listado_antes = dao.findAll().size();
 
-		Sala salaA = new Sala(1L, "Sala A", "Villarobledo", "Calle de la birra", "Al aire libre", 600);
+		Sala salaA = new Sala(1L,
+				"Sala A", "Villarobledo", "Calle de la birra", "Al aire libre", 600);
 
 		Evento eventoTest = new Evento();
-		eventoTest.setId(999779L);
+		eventoTest.setId((long)500 + random.nextInt(1001));
 		eventoTest.setNombre("Claptest2b");
 		eventoTest.setDescripcion_corta("Disco Mataró");
 		eventoTest.setDescripcion_extendida(
