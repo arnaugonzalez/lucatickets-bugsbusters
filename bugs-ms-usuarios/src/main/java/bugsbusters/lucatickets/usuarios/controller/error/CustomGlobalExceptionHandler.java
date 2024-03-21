@@ -75,7 +75,6 @@ public class CustomGlobalExceptionHandler extends ResponseEntityExceptionHandler
 		customError.setTimestamp(new Date());
 		customError.setStatus(status.value());
 		customError.setError(status.toString());
-		
 		// Get all errors indicando el campo en el que falla
 		List<String> messages = new ArrayList<String>();
 		for (FieldError error : ex.getBindingResult().getFieldErrors()) {

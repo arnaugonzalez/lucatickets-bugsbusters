@@ -19,8 +19,8 @@ import io.swagger.v3.oas.annotations.tags.Tag;
  * Controlador para la gestión de pagos.
  */
 @RestController
-@RequestMapping("/pago")
-@Tag(name = "pago", description = "Controlador para la gestión de pagos")
+@RequestMapping("/pagos")
+@Tag(name = "pagos", description = "Controlador para la gestión de pagos")
 public class PagosController {
 
 	@Autowired

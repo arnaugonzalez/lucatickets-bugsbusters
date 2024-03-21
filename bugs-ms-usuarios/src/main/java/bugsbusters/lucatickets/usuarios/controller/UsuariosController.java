@@ -82,7 +82,7 @@ public class UsuariosController {
 			@ApiResponse(responseCode = "404", description = "No se ha encontrado la base de datos", content = @Content)})
 	@PostMapping("/nuevo")
 	public ResponseEntity<?> anadirUsuario(@Valid @RequestBody Usuario usuario){
-		LocalDate fecha_alta = LocalDate.parse(usuario.getFecha_alta(), DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+		LocalDate fecha_alta = LocalDate.parse(usuario.getFecha_alta(), DateTimeFormatter.ofPattern("YYYY-MM-dd"));
 		LocalDate fecha_hoy = LocalDate.now();
 		
 		if (fecha_alta.isAfter(fecha_hoy)) {
