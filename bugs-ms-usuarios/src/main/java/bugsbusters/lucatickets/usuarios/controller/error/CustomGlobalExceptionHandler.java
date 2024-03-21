@@ -8,8 +8,6 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.validation.ConstraintViolationException;
-
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
@@ -23,6 +21,8 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.validation.ConstraintViolation;
+import jakarta.validation.ConstraintViolationException;
 
 /*
 Add one class extending ResponseEntityExceptionHandler and annotate it with @ControllerAdvice annotation.
@@ -53,9 +53,13 @@ public class CustomGlobalExceptionHandler extends ResponseEntityExceptionHandler
 
 	// @Validate For Validating Path Variables and Request Parameters
 	@ExceptionHandler(ConstraintViolationException.class)
-	public void constraintViolationException(HttpServletResponse response) throws IOException {
+	public void constraintViolationException(ConstraintViolationException ex, HttpServletResponse response) throws IOException {
 		logger.info("------ ConstraintViolationException() ");
-		response.sendError(HttpStatus.BAD_REQUEST.value());
+		String violations = "";
+		for(ConstraintViolation<?> v: ex.getConstraintViolations()) {
+			violations.concat(v.getMessage() + " / ");
+		}
+		response.sendError(HttpStatus.BAD_REQUEST.value(), violations);
 	}
 
 	// error handle for @Valid
