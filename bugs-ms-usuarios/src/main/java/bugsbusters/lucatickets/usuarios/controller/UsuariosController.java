@@ -18,6 +18,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import bugsbusters.lucatickets.usuarios.adapter.UsuarioAdapter;
+import bugsbusters.lucatickets.usuarios.controller.error.FechaAltaPosteriorException;
+import bugsbusters.lucatickets.usuarios.controller.error.UsuarioExistsException;
 import bugsbusters.lucatickets.usuarios.controller.error.UsuarioNotFoundException;
 import bugsbusters.lucatickets.usuarios.model.Usuario;
 import bugsbusters.lucatickets.usuarios.model.response.UsuarioResponse;
@@ -30,66 +32,67 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
-
-
 @RestController
 @Validated
 @RequestMapping("/usuarios")
 @Tag(name = "usuario", description = "LucaTickets API")
 public class UsuariosController {
-	
+
 	@Autowired
 	private UsuariosService servicio;
-	 
+
 	@Autowired
 	private UsuarioAdapter adaptador;
-	
-	@Operation(
-			summary = "Listar usuarios", description = "Carga la lista de usuarios de la base de datos", tags= {"usuario"})
+
+	@Operation(summary = "Listar usuarios", description = "Carga la lista de usuarios de la base de datos", tags = {
+			"usuario" })
 	@ApiResponses(value = {
 			@ApiResponse(responseCode = "200", description = "Lista cargada", content = {
-							@Content(mediaType = "application/json", schema = @Schema(implementation = Usuario.class))}),
+					@Content(mediaType = "application/json", schema = @Schema(implementation = Usuario.class)) }),
 			@ApiResponse(responseCode = "400", description = "No valido ", content = @Content),
-			@ApiResponse(responseCode = "404", description = "No se ha encontrado la base de datos", content = @Content)})
-	@GetMapping("/listado") //Devolver la lista de usuarios desde el administrador
+			@ApiResponse(responseCode = "404", description = "No se ha encontrado la base de datos", content = @Content) })
+	@GetMapping("/listado") // Devolver la lista de usuarios desde el administrador
 	public List<UsuarioResponse> listadoUsuarios() {
 		final List<Usuario> usuarios = servicio.listadoUsuarios();
 		return adaptador.de(usuarios);
 	}
-	
-	@Operation(summary = "BuscaUsuario por ID", description = "Dado un ID, devuelve un objeto Usuario", tags= {"evento"})
+
+	@Operation(summary = "BuscaUsuario por ID", description = "Dado un ID, devuelve un objeto Usuario", tags = {
+			"evento" })
 	@ApiResponses(value = {
 			@ApiResponse(responseCode = "200", description = "Usuario localizado", content = {
 					@Content(mediaType = "application/json", schema = @Schema(implementation = Usuario.class)) }),
 			@ApiResponse(responseCode = "404", description = "Usuario no encontrado (NO implementado)", content = @Content) })
 	@GetMapping("/{id}")
 	public UsuarioResponse dameUsuarioPorId(
-			@Parameter(description = "ID del usuario a localizar", required=true) 
-			@PathVariable Long id) {			
+			@Parameter(description = "ID del usuario a localizar", required = true) @PathVariable Long id) {
 		Optional<Usuario> respuesta = servicio.dameUsuarioPorId(id);
-		if(respuesta.isPresent())
+		if (respuesta.isPresent())
 			return adaptador.de(respuesta.get());
-		else throw new UsuarioNotFoundException(id);
+		else
+			throw new UsuarioNotFoundException(id);
 	}
-	
-	
-	@Operation(
-			summary = "Añadir usuario", description = "Añade un nuevo usuario a la base de datos", tags= {"usuario"})
+
+	@Operation(summary = "Añadir usuario", description = "Añade un nuevo usuario a la base de datos", tags = {
+			"usuario" })
 	@ApiResponses(value = {
 			@ApiResponse(responseCode = "200", description = "Usuario añadido", content = {
-							@Content(mediaType = "application/json", schema = @Schema(implementation = Usuario.class))}),
+					@Content(mediaType = "application/json", schema = @Schema(implementation = Usuario.class)) }),
 			@ApiResponse(responseCode = "400", description = "No valido ", content = @Content),
 			@ApiResponse(responseCode = "404", description = "No se ha encontrado la base de datos", content = @Content)})
 	@PostMapping("/nuevo")
-	public ResponseEntity<?> anadirUsuario(@Valid @RequestBody Usuario usuario){
-		LocalDate fecha_alta = LocalDate.parse(usuario.getFecha_alta(), DateTimeFormatter.ofPattern("YYYY-MM-dd"));
-		LocalDate fecha_hoy = LocalDate.now();
+	public UsuarioResponse anadirUsuario(@Valid @RequestBody Usuario usuario){
 		
-		if (fecha_alta.isAfter(fecha_hoy)) {
-			return ResponseEntity.badRequest().body("La fecha de alta no puede ser posterior al día de hoy");
-		}
+		LocalDate fechaAlta = LocalDate.parse(usuario.getFecha_alta(), DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+		LocalDate fechaHoy = LocalDate.now();
+		if (fechaAlta.isAfter(fechaHoy))
+			throw new FechaAltaPosteriorException(fechaHoy.toString());
+//			return ResponseEntity.badRequest().body("La fecha de alta no puede ser posterior al día de hoy");
 		
-		Usuario usuarioDevuelto = servicio.anadirUsuario(usuario);
-		return ResponseEntity.ok(adaptador.de(usuarioDevuelto));
+		if (servicio.existsByEmail(usuario.getEmail()))
+			throw new UsuarioExistsException(usuario.getEmail());
+		
+		final Usuario usuarioDevuelto = servicio.anadirUsuario(usuario);
+		return adaptador.de(usuarioDevuelto);
 	}
 }

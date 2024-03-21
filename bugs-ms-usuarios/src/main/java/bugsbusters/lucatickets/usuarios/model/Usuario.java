@@ -44,7 +44,7 @@ public class Usuario {
 	private String contrasena;
 	
 	@NotEmpty(message = "La fecha debe estar en formato correcto")
-	@Pattern(regexp = "\\d{2}/\\d{2}/\\d{4}", message = "La fecha debe estar en formato dd/MM/yyyy")
+	@Pattern(regexp = "\\d{4}-\\d{2}-\\d{2}", message = "La fecha debe estar en formato YYYY-MM-dd")
 	private String fecha_alta;
 }
 

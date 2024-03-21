@@ -1,6 +1,8 @@
 package bugsbusters.lucatickets.pagos.model;
 
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -19,16 +21,17 @@ public class Tarjeta {
 	@NotEmpty(message = "El nombre del titular de la tarjeta no puede estar vacío")
 	private String nombreTitular;
 	
+	@Pattern(regexp="\\d{4}-\\d{4}-\\d{4}-\\d{4}", message = "El numero de tarjeta debe tener este formato: 4444-4444-4444-4444")
 	@NotEmpty(message = "El numero de la tarjeta no puede estar vacío")
 	private String numeroTarjeta;
 	
-	@NotEmpty(message = "El mes de caducidad de la tarjeta no puede estar vacío")
+	@NotNull(message = "El mes de caducidad de la tarjeta no puede estar vacío")
 	private int mesCaducidad;
 	
-	@NotEmpty(message = "El año de caducidad de la tarjeta no puede estar vacío")
+	@NotNull(message = "El año de caducidad de la tarjeta no puede estar vacío")
 	private int yearCaducidad;
 	
-	@NotEmpty(message = "El CVV de la tarjeta no puede estar vacío")
+	@NotNull(message = "El CVV de la tarjeta no puede estar vacío")
 	private int cvv;
 	
 
