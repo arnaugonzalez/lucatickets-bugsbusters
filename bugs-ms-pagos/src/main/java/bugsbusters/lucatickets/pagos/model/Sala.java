@@ -2,6 +2,7 @@ package bugsbusters.lucatickets.pagos.model;
 
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 
 import lombok.AllArgsConstructor;
@@ -26,7 +27,7 @@ public class Sala {
 //	@Id
 //	@GeneratedValue(strategy = GenerationType.IDENTITY)
 //	@Column(name = "id_sala")
-	@NotEmpty(message="es el ID de la sala, debe ir relleno")
+	@NotNull(message="es el ID de la sala, debe ir relleno")
 	private Long id;
 
 	/**
@@ -56,7 +57,7 @@ public class Sala {
 	/**
 	 * El aforo de la sala.
 	 */
-	@NotEmpty(message = "Aforo es nulo. Pon un valor correcto")
+	@NotNull(message = "Aforo es nulo. Pon un valor correcto")
 	@Positive(message = "El valor del aforo tiene que ser positivo")
 	@Min(value = 1, message = "El aforo tiene que ser como mínimo 1")
 	private int aforo;

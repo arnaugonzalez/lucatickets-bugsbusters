@@ -106,7 +106,7 @@ public class EventosController {
 			@Content(mediaType = "application/json", schema = @Schema(implementation = EventoResponse.class)) }),
 			@ApiResponse(responseCode = "400", description = "Petición inválida", content = @Content),
 			@ApiResponse(responseCode = "404", description = "No se encontraron eventos con ese nombre", content = @Content) })
-	@GetMapping("/{nombre}")
+	@GetMapping("/nombre/{nombre}")
 	public List<EventoResponse> listadoEventosPorNombre(
 			@Parameter(description = "Nombre del evento a buscar", required = true) @PathVariable String nombre) {
 		final List<Evento> respuesta = servicio.listadoEventosPorNombre(nombre);
@@ -143,8 +143,14 @@ public class EventosController {
 	 * @return Una lista de objetos EventoResponse que representan los eventos
 	 *         filtrados por género desde la base de datos.
 	 */
+	@Operation(summary = "Listar eventos por genero", description = "Carga la lista de eventos de la base de datos filtrada por genero", tags = {
+	"evento" })
+	@ApiResponses(value = { @ApiResponse(responseCode = "200", description = "Lista cargada", content = {
+	@Content(mediaType = "application/json", schema = @Schema(implementation = EventoResponse.class)) }),
+	@ApiResponse(responseCode = "400", description = "Petición inválida", content = @Content),
+	@ApiResponse(responseCode = "404", description = "No se encontraron eventos con ese género", content = @Content) })
 	@GetMapping("/genero/{musica}")
-	public List<EventoResponse> listadoEventosPorMusica(String musica) {
+	public List<EventoResponse> listadoEventosPorMusica(@PathVariable String musica) {
 		final List<Evento> eventos = servicio.listadoEventosPorMusica(musica);
 
 		if (eventos.size() > 0)
@@ -154,6 +160,18 @@ public class EventosController {
 
 	}
 	
+	/**
+	 * Mustra una lista de eventos filtrada por ciudad
+	 * @param ciudad El string ciudad por el que se va a filtrar en la base de datos
+	 * @return Una lista de objetos EventoResponse que representan los eventos
+	 *         filtrados por ciudad desde la base de datos.
+	 */
+	@Operation(summary = "Listar eventos por ciudad", description = "Carga la lista de eventos de la base de datos filtrada por ciudad", tags = {
+	"evento" })
+	@ApiResponses(value = { @ApiResponse(responseCode = "200", description = "Lista cargada", content = {
+	@Content(mediaType = "application/json", schema = @Schema(implementation = EventoResponse.class)) }),
+	@ApiResponse(responseCode = "400", description = "Petición inválida", content = @Content),
+	@ApiResponse(responseCode = "404", description = "No se encontraron eventos con esa ciudad", content = @Content) })
 	@GetMapping("/ciudad/{ciudad}")
 	public List<EventoResponse> listadoEventosPorCiudad(@PathVariable String ciudad) {
 		List<Evento> respuesta = servicio.listadoEventosPorCiudad(ciudad);

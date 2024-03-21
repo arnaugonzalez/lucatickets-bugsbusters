@@ -93,7 +93,10 @@ class BugsMsEventosApplicationTests {
 	@Test
 	void contextLoads() {
 	}
-
+	
+	/**
+	 * Verifica si el controlador de eventos no es nulo.
+	 */
 	@Test
 	void existeEventoController() {
 		assertThat(control).isNotNull();
@@ -145,11 +148,31 @@ class BugsMsEventosApplicationTests {
 		List<Evento> listado = dao.findByNombre("Noche de Metal");
 
 		// número de eventos devueltos por un servicio
-		List<EventoResponse> test = control.listadoEventos();
+		List<EventoResponse> test = control.listadoEventosPorNombre("Noche de Metal");
 
 		// esta prueba unitaria verifica si el número de eventos devueltos por un
 		// servicio es igual al número de eventos en la base de datos.
 		assertTrue(test.size() == listado.size());
+	}
+	
+	/**
+	 * Prueba unitaria para verificar que el filtrado por ciudades es correcto
+	 */
+	@Test
+	public void testListadoEventosCiudad() {
+		logger.info("Test::testListadoEventosCiudad(): Comprobar que cada ciudad de las salas coincida con la búsqueda");
+		
+		String ciudad = "Barcelona";
+		int eventos = 0;
+		
+		List<EventoResponse> listado = control.listadoEventosPorCiudad(ciudad);
+		for(int i = 0; i < listado.size(); i++) {
+			if (listado.get(i).getCiudad().equals(ciudad)) {
+				eventos++;
+			}
+		}
+		
+		assertEquals(listado.size(), eventos);
 	}
 
 	/**
@@ -192,7 +215,10 @@ class BugsMsEventosApplicationTests {
 		assertTrue(resultado);
 //		assertTrue(test.equals(eventoAdaptado));
 	}
-
+	
+	/**
+	 * Prueba la funcionalidad de añadir un evento y verificar si la longitud del listado de eventos aumenta 
+	 */
 	@Test
 	public void eventoAnadidoLongitudListado() {
 		logger.info(
@@ -222,7 +248,11 @@ class BugsMsEventosApplicationTests {
 
 		assertEquals(longitud_listado_antes + 1, longitud_listado_despues);
 	}
-
+	
+	/**
+	 * Prueba la funcionalidad de obtener un evento por su ID y Comprueba que el evento devuelto por dameEventoPorID del controlador 
+	 * y el evento obtenido del repositorio por su ID sean iguales.
+	 */
 	@Test
 	public void testEventoPorId() {
 		logger.info(
@@ -236,7 +266,10 @@ class BugsMsEventosApplicationTests {
 
 		assertEquals(e1, e2);
 	}
-
+	
+	/**
+	 * Comprueba que la longitud del listado de eventos después de agregar un nuevo evento sea mayor que la longitud antes de agregarlo
+	 */
 	@Test
 	public void testMostrarListadoEventosDespuesAgregar() {
 		logger.info(
@@ -276,4 +309,27 @@ class BugsMsEventosApplicationTests {
 		assertTrue(longitudDespues > longitudAntes);
 
 	}
+	
+	/**
+	 * Prueba para verificar si el listado de eventos devuelto por el servicio es
+	 * igual a la longitud de la base de datos filtrado por un género.
+	 *
+	 * <p>Se verifica que el número de eventos devueltos por el servicio coincida con el número de eventos en la base de datos filtrado por género.</p>
+	 */
+	
+	@Test
+	public void longitudListadoPorGenero() {
+		logger.info("Test::longitudListadoPorGenero(): Que la cantidad de eventos del género a mostrar por el servicio sea igual a la longitud de la base de datos del género");
+		
+		String musica = "Rock";
+		//número de eventos del género en la base de datos.
+		List<Evento> listado = dao.findByMusica(musica);
+		
+		//número de eventos del género devueltos por un servicio
+		List<EventoResponse> test = control.listadoEventosPorMusica(musica);
+
+		//esta prueba unitaria verifica si el número de eventos devueltos por género por un servicio es igual al número de eventos en la base de datos por un género.
+		assertTrue(test.size() == listado.size());
+	 }
+	
 }
