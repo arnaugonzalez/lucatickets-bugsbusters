@@ -16,19 +16,17 @@ public class CustomErrorJson {
 	private String timestamp;
 		private int status;
 		private String error;
-		private String trace;
 		private List<String> message;
 		private String path;
 
 		
-		public CustomErrorJson(Date timestamp, int status, String error, String trace, List<String> message, String path,
+		public CustomErrorJson(Date timestamp, int status, String error, List<String> message, String path,
 				String jdk) {
 			super();
 			// Formato DD/MM/YY HH:MM:ss
 			this.timestamp = this.changeTimeStamp(timestamp);
 			this.status = status;
 			this.error = error;
-			this.trace = trace;
 			this.message = message;
 			this.path = path;
 		

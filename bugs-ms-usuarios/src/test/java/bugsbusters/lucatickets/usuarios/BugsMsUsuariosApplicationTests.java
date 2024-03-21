@@ -13,6 +13,7 @@ import org.apache.logging.log4j.Logger;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.ResponseEntity;
 
 import bugsbusters.lucatickets.usuarios.adapter.UsuarioAdapter;
 import bugsbusters.lucatickets.usuarios.controller.UsuariosController;
