@@ -3,6 +3,8 @@ package bugsbusters.lucatickets.usuarios.controller;
 import java.util.List;
 import java.util.Optional;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -75,7 +77,7 @@ public class UsuariosController {
 			@ApiResponse(responseCode = "400", description = "No valido ", content = @Content),
 			@ApiResponse(responseCode = "404", description = "No se ha encontrado la base de datos", content = @Content)})
 	@PostMapping("/nuevo") //Devolver un usuario buscado por id
-	public UsuarioResponse anadirUsuario(@RequestBody Usuario usuario){
+	public UsuarioResponse anadirUsuario(@Valid @RequestBody Usuario usuario){
 		final Usuario usuarioDevuelto = servicio.anadirUsuario(usuario);
 		return adaptador.de(usuarioDevuelto);
 	}

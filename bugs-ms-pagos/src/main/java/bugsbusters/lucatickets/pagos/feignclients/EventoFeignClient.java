@@ -10,7 +10,7 @@ import bugsbusters.lucatickets.pagos.model.response.EventoResponse;
 /**
  * Feign client para llamar directamente a la lista de eventos
  */
-@FeignClient(name = "evento", url = "http://localhost:6666")
+@FeignClient(name = "evento", url = "http://localhost:5555")
 public interface EventoFeignClient {
 	/**
 	 * Devuelve un evento en base a su id

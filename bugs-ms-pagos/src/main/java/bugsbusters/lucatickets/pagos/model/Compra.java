@@ -1,7 +1,7 @@
 package bugsbusters.lucatickets.pagos.model;
 
 import jakarta.validation.constraints.NotEmpty;
-
+import jakarta.validation.constraints.NotNull;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -29,10 +29,10 @@ public class Compra {
 	@Column(name = "id_compra")
 	private Long id_compra;
 
-	@NotEmpty(message = "Debe haber un id para el usuario que compra")
+	@NotNull(message = "Debe haber un id para el usuario que compra")
 	private Long id_usuario;
 	
-	@NotEmpty(message = "Debe haber un id para el evento del que se compran entradas")
+	@NotNull(message = "Debe haber un id para el evento del que se compran entradas")
 	private Long id_evento;
 	
 	@NotEmpty(message = "El nombre del usuario no puede estar vacío")
@@ -41,10 +41,10 @@ public class Compra {
 	@NotEmpty(message = "El nombre del evento no puede estar vacío")
 	private String nombre_evento;
 	
-	@NotEmpty(message = "El precio no puede estar vacío")
+	@NotNull(message = "El precio no puede estar vacío")
 	private double precio;
 	
-	@NotEmpty(message = "La cantidad no puede estar vacía")
+	@NotNull(message = "La cantidad no puede estar vacía")
 	private int cantidad;
 		
 

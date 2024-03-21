@@ -106,7 +106,7 @@ public class EventosController {
 			@Content(mediaType = "application/json", schema = @Schema(implementation = EventoResponse.class)) }),
 			@ApiResponse(responseCode = "400", description = "Petición inválida", content = @Content),
 			@ApiResponse(responseCode = "404", description = "No se encontraron eventos con ese nombre", content = @Content) })
-	@GetMapping("/{nombre}")
+	@GetMapping("/nombre/{nombre}")
 	public List<EventoResponse> listadoEventosPorNombre(
 			@Parameter(description = "Nombre del evento a buscar", required = true) @PathVariable String nombre) {
 		final List<Evento> respuesta = servicio.listadoEventosPorNombre(nombre);

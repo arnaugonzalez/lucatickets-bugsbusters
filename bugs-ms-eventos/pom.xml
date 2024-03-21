@@ -60,14 +60,14 @@
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
 		</dependency>
 		<dependency>
-   			<groupId>javax.validation</groupId>
-    		<artifactId>validation-api</artifactId>
-    		<version>2.0.1.Final</version>
-		</dependency>
-		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
 			<scope>provided</scope>
+		</dependency>
+		<dependency>
+   			<groupId>javax.validation</groupId>
+    		<artifactId>validation-api</artifactId>
+    		<version>2.0.1.Final</version>
 		</dependency>
 		<dependency>
      		<groupId>org.springdoc</groupId>
@@ -96,7 +96,7 @@
 		</plugins>
 		<resources>
         <resource>
-            <directory>src/main/resources/config</directory> <!-- Add this line -->
+            <directory>src/main/resources/config</directory>
         </resource>
     </resources>
 	</build>
