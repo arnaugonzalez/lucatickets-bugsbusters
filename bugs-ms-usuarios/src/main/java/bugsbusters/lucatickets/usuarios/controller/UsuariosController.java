@@ -1,11 +1,15 @@
 package bugsbusters.lucatickets.usuarios.controller;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -29,10 +33,10 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 
 
 @RestController
+@Validated
 @RequestMapping("/usuarios")
 @Tag(name = "usuario", description = "LucaTickets API")
 public class UsuariosController {
-	
 	
 	@Autowired
 	private UsuariosService servicio;
@@ -76,9 +80,16 @@ public class UsuariosController {
 							@Content(mediaType = "application/json", schema = @Schema(implementation = Usuario.class))}),
 			@ApiResponse(responseCode = "400", description = "No valido ", content = @Content),
 			@ApiResponse(responseCode = "404", description = "No se ha encontrado la base de datos", content = @Content)})
-	@PostMapping("/nuevo") //Devolver un usuario buscado por id
-	public UsuarioResponse anadirUsuario(@Valid @RequestBody Usuario usuario){
-		final Usuario usuarioDevuelto = servicio.anadirUsuario(usuario);
-		return adaptador.de(usuarioDevuelto);
+	@PostMapping("/nuevo")
+	public ResponseEntity<?> anadirUsuario(@Valid @RequestBody Usuario usuario){
+		LocalDate fecha_alta = LocalDate.parse(usuario.getFecha_alta(), DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+		LocalDate fecha_hoy = LocalDate.now();
+		
+		if (fecha_alta.isAfter(fecha_hoy)) {
+			return ResponseEntity.badRequest().body("La fecha de alta no puede ser posterior al día de hoy");
+		}
+		
+		Usuario usuarioDevuelto = servicio.anadirUsuario(usuario);
+		return ResponseEntity.ok(adaptador.de(usuarioDevuelto));
 	}
 }

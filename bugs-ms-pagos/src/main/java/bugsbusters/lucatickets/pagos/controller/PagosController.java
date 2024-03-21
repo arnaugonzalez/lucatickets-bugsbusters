@@ -12,10 +12,7 @@ import bugsbusters.lucatickets.pagos.model.Tarjeta;
 import bugsbusters.lucatickets.pagos.model.response.ResultadoCompraResponse;
 import bugsbusters.lucatickets.pagos.service.PagosService;
 import io.swagger.v3.oas.annotations.Operation;
-//import io.swagger.v3.oas.annotations.media.Content;
-//import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
-//import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
 /**

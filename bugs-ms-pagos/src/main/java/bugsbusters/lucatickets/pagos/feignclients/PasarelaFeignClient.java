@@ -6,11 +6,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import bugsbusters.lucatickets.pagos.model.Pago;
 import bugsbusters.lucatickets.pagos.model.response.ResultadoPagoResponse;
-import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.media.Content;
-import io.swagger.v3.oas.annotations.media.Schema;
-import io.swagger.v3.oas.annotations.responses.ApiResponse;
-import io.swagger.v3.oas.annotations.responses.ApiResponses;
 
 /**
  * Feign Client para controlar la validación de datos y devolverlos.
