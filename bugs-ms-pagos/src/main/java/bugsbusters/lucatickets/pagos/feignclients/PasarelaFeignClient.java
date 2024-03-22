@@ -9,8 +9,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import bugsbusters.lucatickets.pagos.model.Credenciales;
 import bugsbusters.lucatickets.pagos.model.Pago;
 import bugsbusters.lucatickets.pagos.model.response.ResultadoPagoResponse;
-import feign.Headers;
-import feign.Param;
 
 /**
  * Feign Client para controlar la validación de datos y devolverlos.

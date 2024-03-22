@@ -36,12 +36,9 @@ si usas ResponseEntityExceptionHandler tienes un logger embebido
 */
 
 @ControllerAdvice
-//Realmente seria mejor usar  @RestControllerAdvice aunque aqui es lo mismo
-public class CustomGlobalExceptionHandler extends ResponseEntityExceptionHandler {
+public class ControlPropioExceptions 
+extends ResponseEntityExceptionHandler {
 
-	// Let Spring BasicErrorController handle the exception, we just override the status code
-	// Otra opción es hacerlo de forma individual, pero asi aglutinamos todos y
-	// podemos dar incluso distintos valores o acciones
 
 	// @ResponseStatus(HttpStatus.NOT_FOUND)
 	@ExceptionHandler(UsuarioNotFoundException.class)

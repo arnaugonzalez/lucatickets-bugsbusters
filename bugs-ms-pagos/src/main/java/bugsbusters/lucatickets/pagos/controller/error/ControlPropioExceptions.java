@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
+import org.springframework.web.servlet.resource.NoResourceFoundException;
 
 import feign.FeignException;
 import jakarta.servlet.http.HttpServletResponse;
@@ -37,13 +38,9 @@ si usas ResponseEntityExceptionHandler tienes un logger embebido
 */
 
 @ControllerAdvice
-//Realmente seria mejor usar  @RestControllerAdvice aunque aqui es lo mismo
-public class CustomGlobalExceptionHandler extends ResponseEntityExceptionHandler {
+public class ControlPropioExceptions extends ResponseEntityExceptionHandler {
 
-	// Let Spring BasicErrorController handle the exception, we just override the status code
-	// Otra opción es hacerlo de forma individual, pero asi aglutinamos todos y
-	// podemos dar incluso distintos valores o acciones
-
+	
 	// @ResponseStatus(HttpStatus.NOT_FOUND)
 	@ExceptionHandler(UsuarioNotFoundException.class)
 	public void usuarioNotFound(HttpServletResponse response) throws IOException {
@@ -74,6 +71,7 @@ public class CustomGlobalExceptionHandler extends ResponseEntityExceptionHandler
 		response.sendError(HttpStatus.BAD_REQUEST.value());
 	}
 
+	
 	// error handle for @Valid
 	@Override
 	protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex,
